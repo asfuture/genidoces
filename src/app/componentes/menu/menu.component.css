@@ -1,0 +1,29 @@
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.menu img {
+    max-width: 100px;
+}
+
+.menu a {
+    border: 1px solid pink;
+    border-radius: 5px;
+    padding: 6px;
+    margin-left: 20px;
+    text-decoration: none;
+    color: black;
+}
+.menu a:hover {
+    border: 2px solid pink;
+    color: pink;
+}
+.menu a:active {
+    border: 2px solid pink;
+    color: blue;
+
+}
+
