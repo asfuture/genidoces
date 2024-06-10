@@ -1,1 +1,18 @@
-<p>sessao-doces works!</p>
+
+    <div class="row" >
+        <div class="col s12 m4 l3" *ngFor="let item of card">
+        <div class="card col s12">
+            <div class="card-image col s12">
+            <img src="{{item.imagem}}" >
+            <span class="card-title">{{item.titulo}}</span>
+            </div>
+            <div class="card-content">
+            <p>{{item.descricao}}</p>
+            </div>
+            <div class="card-action">
+            <a href="{{item.whatspp}}">{{ item.link}}</a>
+            </div>
+        </div>
+        </div>
+    </div>
+
