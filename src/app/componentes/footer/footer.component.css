@@ -1,0 +1,20 @@
+.footer-copyright {
+    text-align: center;
+}
+.footer-copyright a{
+    color: white;
+}
+ul {
+    display: flex;
+    gap: 20px;
+}
+
+@media screen and (max-width:600px) {
+    .page-footer {
+        text-align: center;
+    }
+    ul {
+    justify-content: center;
+}
+    
+}
