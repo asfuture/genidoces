@@ -1,0 +1,23 @@
+.card-image  {
+    width: 200px;
+}
+.card-image img {
+    height: 337px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.card .card-image .card-title {
+    max-width: 100%;
+    background: hotpink;
+    color: #fff;
+    font-size: 20px;
+    padding: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 11px;
+    
+}
+.card-action:last-child{
+    text-align: center;
+}

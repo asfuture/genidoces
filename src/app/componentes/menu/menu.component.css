@@ -1,29 +1,33 @@
-.menu {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
+
+.brand {
+    max-width: 90px;
+    border-radius: 50%;
+    margin-top: 3px;
+}
+.nav-wrapper {
+    padding: 0px 30px;
 }
 
-.menu img {
-    max-width: 100px;
-}
-
-.menu a {
+button {
+    background: white;
     border: 1px solid pink;
     border-radius: 5px;
     padding: 6px;
     margin-left: 20px;
     text-decoration: none;
     color: black;
+    cursor: pointer;
 }
-.menu a:hover {
+button:hover {
     border: 2px solid pink;
     color: pink;
 }
-.menu a:active {
-    border: 2px solid pink;
-    color: blue;
 
+
+@media screen and (max-width:600px) {
+    .brand {
+        max-width: 73px;
+        border-radius: 50%;
+        margin-top: 4px;
+    }
 }
-
