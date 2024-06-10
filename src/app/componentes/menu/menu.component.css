@@ -3,6 +3,7 @@
     max-width: 90px;
     border-radius: 50%;
     margin-top: 3px;
+    cursor: pointer;
 }
 .nav-wrapper {
     padding: 0px 30px;
