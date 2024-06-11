@@ -3,12 +3,33 @@
     <form [formGroup]="pedido" (ngSubmit)="onSubmit()">
         <label for="">Digite o seu nome:</label>
         <input type="text" name="nome" formControlName="nome">
+        <ng-container *ngIf="pedido.controls.nome.touched">
+            <span *ngIf="pedido.controls.nome.errors">
+                Campo obrigatório!
+            </span>
+        </ng-container><br>
+        
         <label for="">Whatsapp:<img src="../../../assets/whatsapp.png" alt=""></label>
-        <input type="tel" id="telefone" name="telefone" formControlName="telefone" maxlength="15">
+        <input type="tel" id="telefone" name="telefone" formControlName="telefone" mask="(00) 0 0000 0000">
+        <ng-container *ngIf="pedido.controls.telefone.touched">
+            <span *ngIf="pedido.controls.telefone.errors">
+                Campo obrigatório!
+            </span>
+        </ng-container><br>
         <label for="">Endereço:</label>
         <input type="text" name="endereco" formControlName="endereco">
+        <ng-container *ngIf="pedido.controls.endereco.touched">
+            <span *ngIf="pedido.controls.endereco.errors">
+                Campo obrigatório!
+            </span>
+        </ng-container><br>
         <label>Faça o seu pedido.</label>
-        <textarea name="pedido" id="pedido" rows="10" cols="10" formControlName="mensagem" ></textarea>
+        <textarea name="mensagem" id="pedido" rows="10" cols="10" formControlName="mensagem" ></textarea>
+        <ng-container *ngIf="pedido.controls.mensagem.touched">
+            <span *ngIf="pedido.controls.mensagem.errors">
+                Campo obrigatório!
+            </span>
+        </ng-container><br>
         <button class="btn-large waves-effect waves-light" type="submit" [disabled]="!pedido.valid">Enviar
             <i class="material-icons right">send</i>
           </button>
