@@ -1,14 +1,17 @@
 <h4>Faça o seu pedido.</h4>
 <div class="conatiner">
-    <form>
+    <form [formGroup]="pedido" (ngSubmit)="onSubmit()">
         <label for="">Digite o seu nome:</label>
-        <input type="text" name="nome">
+        <input type="text" name="nome" formControlName="nome">
         <label for="">Whatsapp:<img src="../../../assets/whatsapp.png" alt=""></label>
-        <input type="tel" id="telefone" name="telefone" maxlength="15">
+        <input type="tel" id="telefone" name="telefone" formControlName="telefone" maxlength="15">
+        <label for="">Endereço:</label>
+        <input type="text" name="endereco" formControlName="endereco">
         <label>Faça o seu pedido.</label>
-        <textarea name="pedido" id="pedido" rows="10" cols="10" ></textarea>
-        <button class="btn-large waves-effect waves-light" type="submit">Enviar
+        <textarea name="pedido" id="pedido" rows="10" cols="10" formControlName="mensagem" ></textarea>
+        <button class="btn-large waves-effect waves-light" type="submit" [disabled]="!pedido.valid">Enviar
             <i class="material-icons right">send</i>
           </button>
     </form>
 </div>
+
