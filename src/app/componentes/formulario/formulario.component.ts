@@ -22,11 +22,8 @@ export class FormularioComponent {
  });
  
  onSubmit(){
-  if(!this.pedido.valid){
-    console.log("Formulário inválido");
-    return;
-  }
   console.log(this.pedido.value);
+  this.pedido.reset();
  }
 
 //  get nome(){
