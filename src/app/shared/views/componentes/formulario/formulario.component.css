@@ -30,3 +30,9 @@ textarea {
 .btn {
     text-align: center;
 }
+span {
+    color: red;
+    position: relative;
+    top: 0px;
+    z-index: 2;
+}
