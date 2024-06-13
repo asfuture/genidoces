@@ -1,4 +1,3 @@
-import { routes } from './../../app.routes';
 import { Component, OnInit} from '@angular/core';
 import { MenuComponent } from '../../componentes/menu/menu.component';
 import { FooterComponent } from '../../componentes/footer/footer.component';
