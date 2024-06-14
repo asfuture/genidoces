@@ -5,7 +5,6 @@ import { SessaoDocesComponent } from '../../componentes/sessao-doces/sessao-doce
 import { CarrosselComponent } from '../../componentes/carrossel/carrossel.component';
 import { TextoComponent } from '../../componentes/texto/texto.component';
 import { Router } from '@angular/router';
-declare var M:any;
 @Component({
   selector: 'app-home',
   standalone: true,
