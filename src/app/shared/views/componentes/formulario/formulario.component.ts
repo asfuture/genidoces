@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { NgxMaskDirective,  } from 'ngx-mask';
 import { FormularioService } from './../../../services/formulario.service';
 import { PedidoModel } from '../../../model/pedido.model';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -20,9 +20,9 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 })
 export class FormularioComponent implements OnInit, OnDestroy {
   pedido: any = FormGroup;
-  lista!:PedidoModel[];
+  //lista!:PedidoModel[];
   //lista$!: Observable<PedidoModel[]>;
-  private unsubscribe = new Subject<void>;
+  private unsubscribe = new Subject<void>();
 
   constructor (
     private formBuilder:FormBuilder,
@@ -41,31 +41,39 @@ export class FormularioComponent implements OnInit, OnDestroy {
  onSubmit() {
   if(this.pedido.valid) {
       const valorPedido = this.pedido.value;
-      this.formularioService.postPedido(valorPedido).subscribe(resultado => {
-        console.log(resultado);
-      }, error =>{
+      this.formularioService.postPedido(valorPedido).pipe(
+        takeUntil(this.unsubscribe)
+      ).subscribe({
+        next: (resultado) => {
+          console.log(resultado);
+          alert('Pedido feito com sucesso!')
+      }, 
+      error:(error) => {
         console.log('Erro ao fazer pedido', error)
-      });
+       }
+     });
     }
     console.log(this.pedido.value);
     this.pedido.reset();
  }
 
- buscar() {
-  //  this.formularioService.getPedido().subscribe(dados => this.lista = dados)
-  //this.lista$ = this.formularioService.getPedido();
-      this.formularioService.getPedido()
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe((value) => {
-        console.log(value);
-        this.lista = value;
-      })
-  }
-
  ngOnDestroy(): void {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
-   }
+  console.log('O componente está sendo destruído!')
+   this.unsubscribe.next();
+   this.unsubscribe.complete();
+  }
+//  buscar() {
+//   //  this.formularioService.getPedido().subscribe(dados => this.lista = dados)
+//   //this.lista$ = this.formularioService.getPedido();
+//       this.formularioService.getPedido()
+//       .pipe(takeUntil(this.unsubscribe))
+//       .subscribe((value) => {
+//         console.log(value);
+//         this.lista = value;
+//       })
+//   }
+
+
 //  get nome() {
 //    return this.pedido.get('nome');
 //   }
