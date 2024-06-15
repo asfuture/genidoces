@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 
 import { NgxMaskDirective,  } from 'ngx-mask';
 import { FormularioService } from './../../../services/formulario.service';
+import { PedidoModel } from '../../../model/pedido.model';
+import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -16,14 +18,16 @@ import { FormularioService } from './../../../services/formulario.service';
   styleUrl: './formulario.component.css',
   providers:[HttpClient]
 })
-export class FormularioComponent implements OnInit {
+export class FormularioComponent implements OnInit, OnDestroy {
   pedido: any = FormGroup;
-  lista:any;
+  //lista!:PedidoModel[];
+  //lista$!: Observable<PedidoModel[]>;
+  private unsubscribe = new Subject<void>();
+
   constructor (
     private formBuilder:FormBuilder,
     private formularioService:FormularioService
   ){}
-
 
   ngOnInit(): void {
     this.pedido = this.formBuilder.group({
@@ -32,31 +36,46 @@ export class FormularioComponent implements OnInit {
       endereco: ['', Validators.required], 
       mensagem: ['', [Validators.required, Validators.maxLength(500)]],
    });
-     
   }
  
- onSubmit(){
-  if(this.pedido.valid){
-    const valorPedido = this.pedido.value;
-    this.formularioService.postPedido(valorPedido).subscribe(resultado => {
-      console.log(resultado);
-    }, error =>{
-      console.log('Erro ao fazer pedido', error)
-    });
-  }
-  console.log(this.pedido.value);
-  this.pedido.reset();
+ onSubmit() {
+  if(this.pedido.valid) {
+      const valorPedido = this.pedido.value;
+      this.formularioService.postPedido(valorPedido).pipe(
+        takeUntil(this.unsubscribe)
+      ).subscribe({
+        next: (resultado) => {
+          console.log(resultado);
+          alert('Pedido feito com sucesso!')
+      }, 
+      error:(error) => {
+        console.log('Erro ao fazer pedido', error)
+       }
+     });
+    }
+    console.log(this.pedido.value);
+    this.pedido.reset();
  }
 
- get nome() {
-   return this.pedido.get('nome');
+ ngOnDestroy(): void {
+  console.log('O componente está sendo destruído!')
+   this.unsubscribe.next();
+   this.unsubscribe.complete();
   }
-  
- buscar() {
-   this.formularioService.getPedido().subscribe((responseApi) => {
-    this.lista = responseApi;
-   });
-  
- }
+//  buscar() {
+//   //  this.formularioService.getPedido().subscribe(dados => this.lista = dados)
+//   //this.lista$ = this.formularioService.getPedido();
+//       this.formularioService.getPedido()
+//       .pipe(takeUntil(this.unsubscribe))
+//       .subscribe((value) => {
+//         console.log(value);
+//         this.lista = value;
+//       })
+//   }
+
+
+//  get nome() {
+//    return this.pedido.get('nome');
+//   }
 }
 

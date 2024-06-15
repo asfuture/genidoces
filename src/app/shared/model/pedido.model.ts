@@ -13,3 +13,8 @@ export interface CardDoces {
     whatspp:string;
     imagem:string;
 }
+
+export interface login {
+    email:string;
+    senha:string;
+}
