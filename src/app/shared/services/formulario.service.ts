@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 
 import { PedidoModel } from './../model/pedido.model';
-import { delay, Observable, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +16,15 @@ export class FormularioService {
   constructor(private http: HttpClient) {}
 
   postPedido(pedidoModel:PedidoModel):Observable<PedidoModel>{
-      return this.http.post<PedidoModel>(`${this.apiUrl}/pedido`,pedidoModel);
+      return this.http.post<PedidoModel>(`${this.apiUrl}/pedido`,pedidoModel)
+      .pipe(
+        tap(console.log)
+      );
   }
+
   getPedido(){
     let lista = this.http.get<PedidoModel[]>(`${this.apiUrl}/pedido`,)
     .pipe(
-      //delay(2000),
       tap(console.log)
     );
     return lista;
