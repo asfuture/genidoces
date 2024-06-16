@@ -90,64 +90,86 @@
       "telefone": "11995421492",
       "endereco": "Rua Ubaldo Pinto",
       "mensagem": "alerta de sucesso!"
+    },
+    {
+      "id": "bb37",
+      "nome": "Alex dos Santos Ferreira",
+      "telefone": "11995421492",
+      "endereco": "gf",
+      "mensagem": "fg"
+    },
+    {
+      "id": "1d76",
+      "nome": "Alex dos Santos Ferreira",
+      "telefone": "11995421492",
+      "endereco": "Rua Ubaldo Pinto",
+      "mensagem": "f"
     }
   ],
   "card": [
     {
       "titulo": "Birgadeiro de Chocolate 1",
-      "descricao":"Para os dia dos Namorados presentei a sua amada com um brigadeiro do amor.",
-      "link":"Faça seu pedido agora!",
-      "whatspp":"https://wa.me/11995421492",
-      "imagem": "../../../assets/brigadeiro.jpg"
+      "descricao": "Para os dia dos Namorados presentei a sua amada com um brigadeiro do amor.",
+      "link": "Faça seu pedido agora!",
+      "whatspp": "https://wa.me/11995421492",
+      "imagem": "../../../assets/brigadeiro.jpg",
+      "id": "e8d7"
     },
     {
       "titulo": "Birgadeiro de Chocolate 2",
-      "descricao":"Para os dia dos Namorados presentei a sua amada com um brigadeiro do amor.",
-      "link":"Faça seu pedido agora!",
-      "whatspp":"https://wa.me/11995421492",
-      "imagem": "../../../assets/brigadeiro1.jpg"
+      "descricao": "Para os dia dos Namorados presentei a sua amada com um brigadeiro do amor.",
+      "link": "Faça seu pedido agora!",
+      "whatspp": "https://wa.me/11995421492",
+      "imagem": "../../../assets/brigadeiro1.jpg",
+      "id": "c225"
     },
     {
       "titulo": "Birgadeiro de Chocolate 3",
-      "descricao":"Para os dia dos Namorados presentei a sua amada com um brigadeiro do amor.",
-      "link":"Faça seu pedido agora!",
-      "whatspp":"https://wa.me/11995421492",
-      "imagem": "../../../assets/brigadeiro2.jpg"
+      "descricao": "Para os dia dos Namorados presentei a sua amada com um brigadeiro do amor.",
+      "link": "Faça seu pedido agora!",
+      "whatspp": "https://wa.me/11995421492",
+      "imagem": "../../../assets/brigadeiro2.jpg",
+      "id": "6738"
     },
     {
       "titulo": "Birgadeiro de Chocolate 4",
-      "descricao":"Para os dia dos Namorados presentei a sua amada com um brigadeiro do amor.",
-      "link":"Faça seu pedido agora!",
-      "whatspp":"https://wa.me/11995421492",
-      "imagem": "../../../assets/brigadeiro.jpg"
+      "descricao": "Para os dia dos Namorados presentei a sua amada com um brigadeiro do amor.",
+      "link": "Faça seu pedido agora!",
+      "whatspp": "https://wa.me/11995421492",
+      "imagem": "../../../assets/brigadeiro.jpg",
+      "id": "8e62"
     },
     {
       "titulo": "Birgadeiro de Chocolate 5",
-      "descricao":"Para os dia dos Namorados presentei a sua amada com um brigadeiro do amor.",
-      "link":"Faça seu pedido agora!",
-      "whatspp":"https://wa.me/11995421492",
-      "imagem": "../../../assets/brigadeiro1.jpg"
+      "descricao": "Para os dia dos Namorados presentei a sua amada com um brigadeiro do amor.",
+      "link": "Faça seu pedido agora!",
+      "whatspp": "https://wa.me/11995421492",
+      "imagem": "../../../assets/brigadeiro1.jpg",
+      "id": "36a2"
     },
     {
       "titulo": "Birgadeiro de Chocolate 6",
-      "descricao":"Para os dia dos Namorados presentei a sua amada com um brigadeiro do amor.",
-      "link":"Faça seu pedido agora!",
-      "whatspp":"https://wa.me/11995421492",
-      "imagem": "../../../assets/brigadeiro2.jpg"
+      "descricao": "Para os dia dos Namorados presentei a sua amada com um brigadeiro do amor.",
+      "link": "Faça seu pedido agora!",
+      "whatspp": "https://wa.me/11995421492",
+      "imagem": "../../../assets/brigadeiro2.jpg",
+      "id": "c479"
     },
     {
       "titulo": "Birgadeiro de Chocolate 7",
-      "descricao":"Para os dia dos Namorados presentei a sua amada com um brigadeiro do amor.",
-      "link":"Faça seu pedido agora!",
-      "whatspp":"https://wa.me/11995421492",
-      "imagem": "../../../assets/brigadeiro.jpg"
+      "descricao": "Para os dia dos Namorados presentei a sua amada com um brigadeiro do amor.",
+      "link": "Faça seu pedido agora!",
+      "whatspp": "https://wa.me/11995421492",
+      "imagem": "../../../assets/brigadeiro.jpg",
+      "id": "aa45"
     },
     {
       "titulo": "Birgadeiro de Chocolate 8",
-      "descricao":"Para os dia dos Namorados presentei a sua amada com um brigadeiro do amor.",
-      "link":"Faça seu pedido agora!",
-      "whatspp":"https://wa.me/11995421492",
-      "imagem": "../../../assets/brigadeiro1.jpg"
+      "descricao": "Para os dia dos Namorados presentei a sua amada com um brigadeiro do amor.",
+      "link": "Faça seu pedido agora!",
+      "whatspp": "https://wa.me/11995421492",
+      "imagem": "../../../assets/brigadeiro1.jpg",
+      "id": "7075"
     }
   ],
   "login": []

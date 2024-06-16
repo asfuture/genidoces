@@ -6,7 +6,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 
 import { NgxMaskDirective,  } from 'ngx-mask';
 import { FormularioService } from './../../../services/formulario.service';
-import { PedidoModel } from '../../../model/pedido.model';
 import { Subject, takeUntil } from 'rxjs';
 
 
@@ -62,20 +61,6 @@ export class FormularioComponent implements OnInit, OnDestroy {
    this.unsubscribe.next();
    this.unsubscribe.complete();
   }
-//  buscar() {
-//   //  this.formularioService.getPedido().subscribe(dados => this.lista = dados)
-//   //this.lista$ = this.formularioService.getPedido();
-//       this.formularioService.getPedido()
-//       .pipe(takeUntil(this.unsubscribe))
-//       .subscribe((value) => {
-//         console.log(value);
-//         this.lista = value;
-//       })
-//   }
 
-
-//  get nome() {
-//    return this.pedido.get('nome');
-//   }
 }
 
