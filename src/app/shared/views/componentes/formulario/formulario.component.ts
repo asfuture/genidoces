@@ -18,7 +18,7 @@ import { Subject, takeUntil } from 'rxjs';
   providers:[HttpClient]
 })
 export class FormularioComponent implements OnInit, OnDestroy {
-  pedido!: FormGroup;
+  pedido: any = FormGroup;
   //lista!:PedidoModel[];
   //lista$!: Observable<PedidoModel[]>;
   private unsubscribe = new Subject<void>();
@@ -61,20 +61,6 @@ export class FormularioComponent implements OnInit, OnDestroy {
    this.unsubscribe.next();
    this.unsubscribe.complete();
   }
-//  buscar() {
-//   //  this.formularioService.getPedido().subscribe(dados => this.lista = dados)
-//   //this.lista$ = this.formularioService.getPedido();
-//       this.formularioService.getPedido()
-//       .pipe(takeUntil(this.unsubscribe))
-//       .subscribe((value) => {
-//         console.log(value);
-//         this.lista = value;
-//       })
-//   }
 
-
-//  get nome() {
-//    return this.pedido.get('nome');
-//   }
 }
 
