@@ -23,7 +23,7 @@
                 Campo obrigatório!
             </span>
         </ng-container><br>
-        <label> Faça o seu pedido. </label>
+        <label for=""> Faça o seu pedido. </label>
         <textarea name="mensagem" id="pedido" rows="10" cols="10" formControlName="mensagem" ></textarea>
         <ng-container *ngIf="pedido.controls.mensagem.touched">
             <span *ngIf="pedido.controls.mensagem.errors">

@@ -18,7 +18,7 @@ import { Subject, takeUntil } from 'rxjs';
   providers:[HttpClient]
 })
 export class FormularioComponent implements OnInit, OnDestroy {
-  pedido!: FormGroup;
+  pedido: any = FormGroup;
   //lista!:PedidoModel[];
   //lista$!: Observable<PedidoModel[]>;
   private unsubscribe = new Subject<void>();
