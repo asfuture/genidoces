@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component} from '@angular/core';
 import { MenuComponent } from '../../componentes/menu/menu.component';
 import { FooterComponent } from '../../componentes/footer/footer.component';
 import { SessaoDocesComponent } from '../../componentes/sessao-doces/sessao-doces.component';
@@ -12,20 +12,8 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent  {
 
   constructor( private route:Router){
-
   }
-ngOnInit(): void {
-      // Ativa o carrossel do componente Carrossel
-      // let valor = this.route.config[1].path;
-      // if(valor == 'home'){
-      //   var elems = document.querySelectorAll('.carousel');
-      //   var instances = M.Carousel.init(elems);
-      //   console.log(" IF valor ", valor)
-      // }
-       
-  }
-
 }
