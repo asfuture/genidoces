@@ -1,14 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { FormularioComponent } from './formulario.component';  // Importe o componente que você deseja testar
 
-import { FormularioComponent } from './formulario.component';
-
-describe('FormularioComponent', () => {
+fdescribe('FormularioComponent', () => {
   let component: FormularioComponent;
   let fixture: ComponentFixture<FormularioComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormularioComponent]
+      imports: [ReactiveFormsModule],  // Importe os módulos necessários para o componente
+      declarations: [FormularioComponent],  // Declare o componente que você está testando
+      providers: [FormBuilder]  // Se houver algum serviço ou provedor necessário, adicione aqui
     })
     .compileComponents();
     
@@ -20,4 +22,5 @@ describe('FormularioComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

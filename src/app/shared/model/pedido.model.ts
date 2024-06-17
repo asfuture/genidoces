@@ -1,6 +1,6 @@
 export interface PedidoModel {
     nome:string;
-    telefone:number;
+    telefone:string;
     endereco:string;
     mensagem:string;
 }

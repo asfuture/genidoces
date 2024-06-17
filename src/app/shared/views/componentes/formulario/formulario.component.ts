@@ -19,6 +19,7 @@ import { Subject, takeUntil } from 'rxjs';
   providers:[HttpClient]
 })
 export class FormularioComponent implements OnInit, OnDestroy {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pedido: any = FormGroup;
   //lista!:PedidoModel[];
   //lista$!: Observable<PedidoModel[]>;
