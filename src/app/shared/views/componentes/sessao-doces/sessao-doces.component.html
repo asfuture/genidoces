@@ -1,9 +1,12 @@
-
+<!-- eslint-disable @angular-eslint/template/alt-text -->
+    <div style="text-align: center;" *ngIf="cardService.message$ | async as message">
+        {{ message }}
+    </div>
     <div class="row" >
         <div class="col s12 m4 l3" *ngFor="let item of card">
         <div class="card col s12">
             <div class="card-image col s12">
-            <img src="{{item.imagem}}" >
+            <img src="{{item.imagem}}" />
             <span class="card-title">{{item.titulo}}</span>
             </div>
             <div class="card-content">
