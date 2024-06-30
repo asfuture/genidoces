@@ -18,6 +18,7 @@ import { Subject, takeUntil } from 'rxjs';
   providers:[HttpClient]
 })
 export class FormularioComponent implements OnInit, OnDestroy {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pedido: any = FormGroup;
   //lista!:PedidoModel[];
   //lista$!: Observable<PedidoModel[]>;
@@ -25,7 +26,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
 
   constructor (
     private formBuilder:FormBuilder,
-    private formularioService:FormularioService
+    public formularioService:FormularioService
   ){}
 
   ngOnInit(): void {
@@ -40,20 +41,18 @@ export class FormularioComponent implements OnInit, OnDestroy {
  onSubmit() {
   if(this.pedido.valid) {
       const valorPedido = this.pedido.value;
-      this.formularioService.postPedido(valorPedido).pipe(
-        takeUntil(this.unsubscribe)
-      ).subscribe({
-        next: (resultado) => {
-          console.log(resultado);
-          alert('Pedido feito com sucesso!')
-      }, 
-      error:(error) => {
-        console.log('Erro ao fazer pedido', error)
-       }
-     });
-    }
-    console.log(this.pedido.value);
-    this.pedido.reset();
+        this.formularioService.post(valorPedido).pipe(
+          takeUntil(this.unsubscribe)
+          ).subscribe({
+            next: (resultado) => {
+            console.log(resultado);
+            },
+            error:(error) => {
+              console.log('Erro ao fazer pedido', error)
+            }
+        });
+      }
+   this.pedido.reset();
  }
 
  ngOnDestroy(): void {

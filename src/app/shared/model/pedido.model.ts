@@ -1,4 +1,5 @@
 export interface PedidoModel {
+    _id:number;
     nome:string;
     telefone:number;
     endereco:string;

@@ -35,3 +35,6 @@
           </button>
     </form>
 </div>
+<div style="text-align: center;" *ngIf="formularioService.message$ | async as message">
+    {{message}}
+</div>

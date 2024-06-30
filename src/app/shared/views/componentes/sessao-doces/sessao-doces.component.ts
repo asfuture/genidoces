@@ -16,22 +16,21 @@ import { CardDoces } from '../../../model/pedido.model';
   providers:[HttpClient]
 })
 export class SessaoDocesComponent implements OnInit, OnDestroy {
-  card:CardDoces[] = [];
+  card:CardDoces[] | null = [];
   
   private unsubscribe = new Subject<void>();
 
-  constructor (private cardService:CardService){}
+  constructor (public cardService:CardService){}
 
  ngOnInit(): void {
-  this.getCard();
+  this.get();
  }
 
- getCard() {
-       this.cardService.getCard().pipe(
+ get() {
+       this.cardService.get().pipe(
         takeUntil(this.unsubscribe))
         .subscribe({
-          next: (response:CardDoces[]  ) => {
-              console.log(response);
+          next: (response:CardDoces[] | null ) => {
               this.card = response;
           }, 
           error:(error) => {

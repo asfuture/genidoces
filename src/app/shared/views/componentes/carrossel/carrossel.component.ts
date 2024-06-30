@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-declare var M:any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare let M:any;
 @Component({
   selector: 'app-carrossel',
   standalone: true,
@@ -14,10 +15,10 @@ export class CarrosselComponent implements OnInit {
 
   ngOnInit(): void {
     // Validação para ativa o carrossel apenas com a url home
-    let valor = this.route.config[1].path;
+    const valor = this.route.config[1].path;
     if(valor == 'home'){
-      var elems = document.querySelectorAll('.carousel');
-      var instances = M.Carousel.init(elems);
+      const elems = document.querySelectorAll('.carousel');
+      M.Carousel.init(elems);
       console.log(" IF valor ", valor)
     }
   }
