@@ -1,1 +1,28 @@
-<p>login works!</p>
+ <nav>
+    <div class="nav-wrapper">
+      <img class="brand" routerLink="/home" src="../../../assets/logotipo.jpg" alt="Logo">
+    </div>
+  </nav>
+
+  <div class="conatiner">
+    <form [formGroup]="login" (ngSubmit)="onSubmit()">
+        <label for="">Digite o seu login:</label>
+        <input type="text" name="nome" formControlName="nome">
+        <ng-container *ngIf="login.controls.nome.touched">
+            <span *ngIf="login.controls.nome.errors">
+                Campo obrigatório!
+            </span>
+        </ng-container><br>
+        
+        <label for="">Digite a sua senha:</label>
+        <input type="password">
+        <ng-container *ngIf="login.controls.telefone.touched">
+            <span *ngIf="login.controls.telefone.errors">
+                Campo obrigatório!
+            </span>
+        </ng-container><br>
+        <button class="btn-large waves-effect waves-light" type="submit" [disabled]="">Enviar
+            <i class="material-icons right">send</i>
+          </button>
+    </form>
+</div>
