@@ -7,22 +7,23 @@
   <div class="conatiner">
     <form [formGroup]="login" (ngSubmit)="onSubmit()">
         <label for="">Digite o seu login:</label>
-        <input type="text" name="nome" formControlName="nome">
-        <ng-container *ngIf="login.controls.nome.touched">
+        <input type="email" name="email" formControlName="email">
+        <ng-container *ngIf="login.controls.email.touched">
             <span *ngIf="login.controls.nome.errors">
                 Campo obrigatório!
             </span>
-        </ng-container><br>
+        </ng-container><br><br><br>
         
         <label for="">Digite a sua senha:</label>
-        <input type="password">
+        <input type="password" name="senha" formControlName="senha">
         <ng-container *ngIf="login.controls.telefone.touched">
-            <span *ngIf="login.controls.telefone.errors">
+            <span *ngIf="login.controls.senha.errors">
                 Campo obrigatório!
             </span>
         </ng-container><br>
-        <button class="btn-large waves-effect waves-light" type="submit" [disabled]="">Enviar
-            <i class="material-icons right">send</i>
+        <button class="btn waves-effect waves-light" type="submit" [disabled]="">Entrar
           </button>
+          <p><a href="#">Alterar senha</a></p>
     </form>
+    
 </div>
