@@ -27,7 +27,7 @@ export class ListaCardComponent implements OnInit{
 
    ngOnInit(): void {
     this.cadastrarLogin = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.maxLength(30)]],
+      email: ['', [Validators.required, Validators.maxLength(40)]],
       senha: ['', [Validators.required, Validators.maxLength(4)]],
    });
   }
@@ -35,17 +35,22 @@ export class ListaCardComponent implements OnInit{
   onSubmit() {
     if(this.cadastrarLogin.valid) {
          const valor = this.cadastrarLogin.value;
-        // const valorEncryptador = this.cryptoService.encryptData(valor)
-           this.loginService.post(valor).pipe(
-            takeUntil(this.unsubscribe))
-            .subscribe({
+         const email = JSON.stringify(valor.email);
+         const senha = JSON.stringify(valor.senha);
+
+         const emailEncryptado = this.cryptoService.encryptData(email);
+         const senhaEncryptada  = this.cryptoService.encryptData(senha);
+      
+            this.loginService.post({email:emailEncryptado, senha:senhaEncryptada} ).pipe(
+             takeUntil(this.unsubscribe))
+             .subscribe({
               next: (response:login) => {
-    
+             
               }, 
-              error:(error) => {
-              console.log('Erro ao fazer requisição dos cards',error, )
-              }
-            })
+               error:(error) => {
+               console.log('Erro ao fazer requisição dos cards',error, )
+               }
+             })
       this.cadastrarLogin.reset();
    }
  

@@ -23,7 +23,7 @@ export class LoginService {
     private http:HttpClient
   ) { }
 
-  get(){
+  get() {
         const login = this.http.get<login[]>(`${this.apiUrl}/login`,)
         .pipe(
           tap(() => {
@@ -40,13 +40,14 @@ export class LoginService {
       post(cadastrarLogin:login):Observable<login> {
         return this.http.post<login>(`${this.apiUrl}/login`, cadastrarLogin).pipe(
           tap(() => {
-            this.showMessage('Pedido enviado com sucesso');
+            this.showMessage('Login e senha cadastrado com sucesso');
           }),
           catchError((error) => {
-            this.showMessage(`Erro ao enviar pedido: ${error.message || error}`);
+            this.showMessage(`Erro ao cadastrar login e senha: ${error.message || error}`);
             return of(error);
           })
         );
       }
+
   }
 

@@ -8,16 +8,16 @@
     <form [formGroup]="cadastrarLogin" (ngSubmit)="onSubmit()">
         <label for="">Digite o seu login:</label>
         <input type="email" name="email" formControlName="email">
-        <ng-container *ngIf="cadastrarLogin.controls.email.touched">
-            <span *ngIf="cadastrarLogin.controls.nome.errors">
+        <ng-container *ngIf="cadastrarLogin">
+            <span *ngIf="">
                 Campo obrigatório!
             </span>
         </ng-container><br><br><br>
         
         <label for="">Digite a sua senha:</label>
         <input type="password" name="senha" formControlName="senha">
-        <ng-container *ngIf="cadastrarLogin.controls.telefone.touched">
-            <span *ngIf="cadastrarLogin.controls.senha.errors">
+        <ng-container *ngIf="cadastrarLogin">
+            <span *ngIf="">
                 Campo obrigatório!
             </span>
         </ng-container><br>
