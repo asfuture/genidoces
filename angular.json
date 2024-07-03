@@ -5,7 +5,10 @@
   "projects": {
     "genidoces": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": { "@angular-eslint/schematics": {
+        "version": "latest"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",

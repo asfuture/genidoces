@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 import { login } from '../model/pedido.model';
-import { tap, Observable, catchError, of, BehaviorSubject } from 'rxjs';
+import { tap, Observable, catchError, of, BehaviorSubject, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,18 @@ export class LoginService {
           })
       );
         return login;
+      }
+
+      post(cadastrarLogin:login):Observable<login> {
+        return this.http.post<login>(`${this.apiUrl}/login`, cadastrarLogin).pipe(
+          tap(() => {
+            this.showMessage('Pedido enviado com sucesso');
+          }),
+          catchError((error) => {
+            this.showMessage(`Erro ao enviar pedido: ${error.message || error}`);
+            return of(error);
+          })
+        );
       }
   }
 

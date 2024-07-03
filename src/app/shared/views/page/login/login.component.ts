@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginService } from '../../../services/login.service';
 import { login } from '../../../model/pedido.model';
-import { Subject, takeUntil } from 'rxjs';
+import {  Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   private unsubscribe = new Subject<void>();
   constructor( 
     private formBuilder:FormBuilder,
-    private loginService:LoginService
+    private loginService:LoginService,
+    private router:Router
    ){}
 ngOnInit(): void {
   this.login = this.formBuilder.group({
@@ -35,10 +37,16 @@ ngOnInit(): void {
            takeUntil(this.unsubscribe))
            .subscribe({
              next: (response:login[] | null ) => {
-                 this.login = response;
-
-                 console.log("Api",this.login[0].email, this.login[0].senha )
-                 console.log("Login",valor.email, valor.senha )
+                 const apiEmailSenha = response;
+                 for ( const item of apiEmailSenha! ){
+                      if (item.email == valor.email && item.senha == valor.senha ) {
+                          console.log(" acesso ok!")
+                          this.router.navigate(['home']);
+                          break;
+                      } else {
+                        console.log(" acesso negado!")
+                      }
+                 }
              }, 
              error:(error) => {
              console.log('Erro ao fazer requisição dos cards',error, )
