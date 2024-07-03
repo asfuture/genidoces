@@ -88,5 +88,19 @@
       "id": "7075"
     }
   ],
-  "login": []
+  "login": [
+    {
+      "email": "alex@gmail.com",
+      "senha": "1234"
+    },
+    {
+      "email": "ferreira@gmail.com",
+      "senha": "4567"
+    },
+    {
+      "id": "e393",
+      "email": "ferreirasantos1989@hotmail.com",
+      "senha": "2020"
+    }
+  ]
 }
