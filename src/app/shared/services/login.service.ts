@@ -24,7 +24,7 @@ export class LoginService {
   ) { }
 
   get() {
-        const login = this.http.get<login[]>(`${this.apiUrl}/login`,)
+        const login = this.http.get<login[]>(`${this.apiUrl}/user`,)
         .pipe(
           tap(() => {
             this.showMessage("lista de pedidos obtida com sucesso!")
@@ -38,7 +38,7 @@ export class LoginService {
       }
 
       post(cadastrarLogin:login):Observable<login> {
-        return this.http.post<login>(`${this.apiUrl}/login`, cadastrarLogin).pipe(
+        return this.http.post<login>(`${this.apiUrl}/user`, cadastrarLogin).pipe(
           tap(() => {
             this.showMessage('Login e senha cadastrado com sucesso');
           }),
