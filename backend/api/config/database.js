@@ -1,15 +1,11 @@
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-// const dbURI = `mongodb+srv://asfuture2019:@Aiesec2014@genidoces.mqztirw.mongodb.net/?retryWrites=true&w=majority&appName=genidoces`;
-// mongoose.connect(dbURI, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-// });
+const dbURI = `mongodb+srv://asfuture:Aiesec2014@genidoces.mqztirw.mongodb.net/genidoces?retryWrites=true&w=majority&appName=genidoces`;
 
-// const db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', () => {
-//     console.log('Connected to MongoDB');
-// });
+mongoose.connect(dbURI)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(error => console.error('Connection error:', error));
 
-// module.exports = db;
+const db = mongoose.connection;
+
+module.exports = db;

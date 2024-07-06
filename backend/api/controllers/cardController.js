@@ -1,8 +1,8 @@
-const card = require('../model/cardModel');
+const Card = require('../model/cardModel');
 
 exports.getCard = async (req, res) => {
     try {
-        const card = await card.find();
+        const card = await Card.find();
         res.status(200).json(card);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -11,7 +11,7 @@ exports.getCard = async (req, res) => {
 
 exports.getCardById =  async (req, res) => {
     try {
-        const cardId = await card.findById(req.params.id);
+        const cardId = await Card.findById(req.params.id);
         if(!card) return res.status(404).json({message: ' Card not found'});
         res.status(200).json(pedidoId);
     } catch (err) {
@@ -28,7 +28,7 @@ exports.createCard = async (req, res) => {
     });
 
     try {
-        const newCard = await card.save();
+        const newCard = await Card.save();
         res.status(201).json(newCard);
     } catch (err) {
         res.status(400).json({ message: err.message});
@@ -37,7 +37,7 @@ exports.createCard = async (req, res) => {
 
 exports.updateCard = async (req, res) => {
     try {
-        const card = await card.findById(req.params.id);
+        const card = await Card.findById(req.params.id);
         if(!card) return res.status(404).json({ message: 'Card not found'});
 
         if (red.body.titulo != null) card.titulo = req.body.titulo;
@@ -54,7 +54,7 @@ exports.updateCard = async (req, res) => {
 
 exports.deleteCard = async (req, res) => {
     try {
-        const card = await card.findById(req.params.id);
+        const card = await Card.findById(req.params.id);
         if (!card) return res.status(404).json({ message: 'Pedido not found' });
 
         await cardDelete .remove();

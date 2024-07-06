@@ -1,8 +1,8 @@
-const pedido = require('../model/pedidoModel');
+const Pedido = require('../model/pedidoModel');
 
 exports.getPedidos = async (req, res) => {
     try {
-        const pedidos = await pedido.find();
+        const pedidos = await Pedido.find();
         res.status(200).json(pedidos);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -11,7 +11,7 @@ exports.getPedidos = async (req, res) => {
 
 exports.getPedidoById =  async (req, res) => {
     try {
-        const pedidoId = await pedido.findById(req.params.id);
+        const pedidoId = await Pedido.findById(req.params.id);
         if(!pedido) return res.status(404).json({message: ' Pedido not found'});
         res.status(200).json(pedidoId);
     } catch (err) {
@@ -20,7 +20,7 @@ exports.getPedidoById =  async (req, res) => {
 };
 
 exports.createPedido = async (req, res) => {
-    const pedidoC = new pedido({
+    const pedidoC = new Pedido({
         nome:req.body.nome,
         telefone:req.body.telefone,
         endereco:req.body.endereco,
@@ -37,7 +37,7 @@ exports.createPedido = async (req, res) => {
 
 exports.updatePedido = async (req, res) => {
     try {
-        const pedidoUp = await pedido.findById(req.params.id);
+        const pedidoUp = await Pedido.findById(req.params.id);
         if(!pedido) return res.status(404).json({ message: 'Pedido not found'});
 
         if (red.body.nome != null) pedidoUp.nome = req.body.nome;
@@ -55,7 +55,7 @@ exports.updatePedido = async (req, res) => {
 
 exports.deletePedido = async (req, res) => {
     try {
-        const pedidoDelete = await pedido.findById(req.params.id);
+        const pedidoDelete = await Pedido.findById(req.params.id);
         if (!pedido) return res.status(404).json({ message: 'Pedido not found' });
 
         await pedidoDelete .remove();

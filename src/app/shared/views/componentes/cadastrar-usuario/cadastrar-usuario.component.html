@@ -1,0 +1,32 @@
+<nav>
+    <div class="nav-wrapper">
+      <img class="brand" routerLink="/home" src="../../../assets/logotipo.jpg" alt="Logo">
+    </div>
+  </nav>
+  <div class="conatiner">
+    <form [formGroup]="cadastrarUsuario" (ngSubmit)="onSubmit()">
+        <label for="">Digite o seu login:</label>
+        <input type="email" name="email" formControlName="email">
+        <ng-container *ngIf="cadastrarUsuario">
+            <span *ngIf="">
+                Campo obrigatório!
+            </span>
+        </ng-container><br><br><br>
+        
+        <label for="">Digite a sua senha:</label>
+        <input type="password" name="senha" formControlName="senha">
+        <ng-container *ngIf="cadastrarUsuario">
+            <span *ngIf="">
+                Campo obrigatório!
+            </span>
+        </ng-container><br>
+        <button class="btn waves-effect waves-light" type="submit" [disabled]="">Cadastrar usuário
+          </button>
+    </form>
+
+    <div *ngFor="let item of user">
+        <label for="">Email: {{item.email}}</label>
+        <label for="">Senha: {{item.senha}}</label>
+    </div>
+</div>
+

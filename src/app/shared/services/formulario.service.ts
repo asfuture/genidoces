@@ -25,7 +25,7 @@ export class FormularioService {
   constructor(private http: HttpClient) {}
 
   get(){
-    const lista = this.http.get<PedidoModel[]>(`${this.apiUrl}/pedido`,)
+    const lista = this.http.get<PedidoModel[]>(`${this.apiUrl}/pedidos`,)
     .pipe(
       tap(() => {
         this.showMessage("lista de pedidos obtida com sucesso!")
@@ -39,7 +39,7 @@ export class FormularioService {
   }
   
   post(pedido:PedidoModel):Observable<PedidoModel> {
-    return this.http.post<PedidoModel>(`${this.apiUrl}/pedido`, pedido).pipe(
+    return this.http.post<PedidoModel>(`${this.apiUrl}/pedidos`, pedido).pipe(
       tap(() => {
         this.showMessage('Pedido enviado com sucesso');
       }),

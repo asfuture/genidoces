@@ -22,7 +22,7 @@ export class CardService {
   constructor(private http: HttpClient) { }
 
   get(){
-    const listaCard = this.http.get<CardDoces[]>(`${this.apiUrl}/card`)
+    const listaCard = this.http.get<CardDoces[]>(`${this.apiUrl}/cards`)
     .pipe(
       catchError((error) => {
         this.showMessage(`Erro ao obter lista da de card: ${error.message || error}`);
@@ -33,7 +33,7 @@ export class CardService {
   }
 
   post(card:CardDoces):Observable<CardDoces> {
-    return this.http.post<CardDoces>(`${this.apiUrl}/card`, card).pipe(
+    return this.http.post<CardDoces>(`${this.apiUrl}/cards`, card).pipe(
       tap(() => {
         this.showMessage('Pedido enviado com sucesso');
       }),
