@@ -51,7 +51,7 @@ ngOnInit(): void {
           
                       if (emailDecreptado == email && senhaDecreptado == senha ) {
                           console.log(" Acesso ok!")
-                          this.router.navigate(['cadastrar-usuario']);
+                          this.router.navigate(['cadastrar']);
                           break;
                       } else {
                         console.log(" Acesso negado!")

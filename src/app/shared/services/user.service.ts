@@ -26,6 +26,7 @@ export class UserService {
   get() {
         const user = this.http.get<user[]>(`${this.apiUrl}/user`,)
         .pipe(
+          tap(console.log),
           tap(() => {
             this.showMessage("lista de pedidos obtida com sucesso!")
           }),

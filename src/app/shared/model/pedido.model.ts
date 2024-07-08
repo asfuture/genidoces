@@ -16,6 +16,7 @@ export interface CardDoces {
 }
 
 export interface user {
+    _id?:string;
     email:string;
     senha:string;
 }

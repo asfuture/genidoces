@@ -17,7 +17,6 @@ import {  Subject, takeUntil } from 'rxjs';
 })
 export class CadastrarUsuarioComponent implements OnInit {
    user: user[] = [];
-
   cadastrarUsuario:any = FormGroup;
   private unsubscribe = new Subject<void>();
 
@@ -33,35 +32,40 @@ export class CadastrarUsuarioComponent implements OnInit {
       senha: ['', [Validators.required, Validators.maxLength(4)]],
    });
 
-
    if(this.user) {
       this.userService.get().pipe(
        takeUntil(this.unsubscribe))
        .subscribe({
          next: (response:user[] | null ) => {
-             const apiEmailSenha = response;
-             for ( const item of apiEmailSenha! ) {
-              console.log("api",apiEmailSenha)
-              const emailDecreptado = this.cryptoService.decryptData(item.email);
+             for ( const item of response! ) {
+              const emailDecreptado =  this.cryptoService.decryptData(item.email);
               const senhaDecreptado  = this.cryptoService.decryptData(item.senha);
               
-              this.user.push({ email:emailDecreptado, senha:senhaDecreptado})
-
+              this.user.push({ email:emailDecreptado, senha:senhaDecreptado,_id:item._id});
              }
+             this.user.reverse();
          }, 
          error:(error) => {
          console.log('Erro ao fazer requisição dos cards',error, )
          }
-       })
+       });
     }
   }
 
-  onSubmit() {
+  onSubmit():void {
     if(this.cadastrarUsuario.valid) {
+      console.log("lista comparar",this.user) ;
+
+      // for (let item of this.user){
+          
+      //   console.log('use', item.email," igual ", this.cadastrarUsuario.value.email )
+      // }
+        
+      
          const valor = this.cadastrarUsuario.value;
          const email = JSON.stringify(valor.email);
          const senha = JSON.stringify(valor.senha);
-
+      
          const emailEncryptado = this.cryptoService.encryptData(email);
          const senhaEncryptada  = this.cryptoService.encryptData(senha);
       
@@ -69,15 +73,18 @@ export class CadastrarUsuarioComponent implements OnInit {
              takeUntil(this.unsubscribe))
              .subscribe({
               next: (response:user) => {
-             
+          
               }, 
                error:(error) => {
                console.log('Erro ao fazer requisição dos cards',error, )
                }
-             })
+             });
       this.cadastrarUsuario.reset();
    }
  }
 
+ removeAspas(str: string): string {
+  return str.replace(/^"|"$/g, '');
+  }
 
 }
