@@ -24,7 +24,7 @@ export class UserService {
   ) { }
 
   get() {
-        const user = this.http.get<user[]>(`${this.apiUrl}/user`,)
+        const user = this.http.get<user[]>(`${this.apiUrl}/users`,)
         .pipe(
           tap(console.log),
           tap(() => {
@@ -39,7 +39,7 @@ export class UserService {
       }
 
       post(cadastrarUsuario:user):Observable<user> {
-        return this.http.post<user>(`${this.apiUrl}/user`, cadastrarUsuario).pipe(
+        return this.http.post<user>(`${this.apiUrl}/users`, cadastrarUsuario).pipe(
           tap(() => {
             this.showMessage('Login e senha cadastrado com sucesso');
           }),
@@ -48,6 +48,16 @@ export class UserService {
             return of(error);
           })
         );
+      }
+
+      delete(id:string):Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/users/${id}`).pipe(
+          tap(() => this.showMessage("Usuário deletado com sucesso!")),
+          catchError((error) => {
+            this.showMessage(`Erro ao deletar usuário; ${error.message || error}`);
+            return of(error);
+          })
+        )
       }
 
   }

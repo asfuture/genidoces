@@ -3,9 +3,11 @@
       <img class="brand" routerLink="/home" src="../../../assets/logotipo.jpg" alt="Logo">
     </div>
   </nav>
+  <h4>Cadastrar novo usuário</h4>
   <div class="conatiner">
     <form [formGroup]="cadastrarUsuario" (ngSubmit)="onSubmit()">
-        <label for="">Digite o seu login:</label>
+        
+        <label for="">Criar login do usuário:</label>
         <input type="email" name="email" formControlName="email">
         <ng-container *ngIf="cadastrarUsuario">
             <span *ngIf="">
@@ -13,7 +15,7 @@
             </span>
         </ng-container><br><br><br>
         
-        <label for="">Digite a sua senha:</label>
+        <label for="">Criar senha do usuário:</label>
         <input type="password" name="senha" formControlName="senha">
         <ng-container *ngIf="cadastrarUsuario">
             <span *ngIf="">
@@ -40,8 +42,8 @@
                 <td>{{removeAspas(item.email)}}</td>
                 <td>{{removeAspas(item.senha)}}</td>
                 <td>
-                    <button>Editar</button>
-                    <button>Deletar</button>
+                    <button class="editar">Editar</button>
+                    <button class="deletar" (click)="deletar(item._id!)">Deletar</button>
                 </td>
             </tr>
         </tbody>

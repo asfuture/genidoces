@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { user } from '../../../model/pedido.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -23,7 +24,8 @@ export class CadastrarUsuarioComponent implements OnInit {
   constructor( 
     private formBuilder:FormBuilder,
     private userService:UserService,
-    private cryptoService:CryptoService
+    private cryptoService:CryptoService,
+    private route:Router
    ){}
 
    ngOnInit(): void {
@@ -81,6 +83,19 @@ export class CadastrarUsuarioComponent implements OnInit {
              });
       this.cadastrarUsuario.reset();
    }
+ }
+
+ deletar (id:string):void {
+  const resposta = confirm("Deseja realmente deletar esse usuário?",);
+  if (resposta) {
+      alert(`Item deletado com sucesso, ${id}`);
+      this.userService.delete(id).pipe(
+        takeUntil(this.unsubscribe)
+      ).subscribe({
+        next: () => console.log("Usuário deletado com sucesso."),
+        error: err => console.error('Erro ao deletar usuário: ', err)
+      });
+  }
  }
 
  removeAspas(str: string): string {

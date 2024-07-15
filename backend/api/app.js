@@ -10,6 +10,6 @@ app.use(cors());
 app.use(express.json());
 app.use('/pedidos', pedidoRoutes);
 app.use('/cards', cardRoutes);
-app.use('/user', userRoutes);
+app.use('/users', userRoutes);
 
 module.exports = app;
