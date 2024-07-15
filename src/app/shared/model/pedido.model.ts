@@ -11,7 +11,7 @@ export interface CardDoces {
     titulo:string;
     descricao:string;
     link:string;
-    whatspp:string;
+    whatsapp:string;
     imagem:string;
 }
 
