@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
-import { login } from '../model/pedido.model';
+import { user } from '../model/pedido.model';
 import { tap, Observable, catchError, of, BehaviorSubject, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class UserService {
     private readonly apiUrl:string = environment.apiUrl;
 
     private messageSubject = new BehaviorSubject<string | null >(null);
@@ -24,8 +24,9 @@ export class LoginService {
   ) { }
 
   get() {
-        const login = this.http.get<login[]>(`${this.apiUrl}/user`,)
+        const user = this.http.get<user[]>(`${this.apiUrl}/users`,)
         .pipe(
+          tap(console.log),
           tap(() => {
             this.showMessage("lista de pedidos obtida com sucesso!")
           }),
@@ -34,11 +35,11 @@ export class LoginService {
             return of(null)
           })
       );
-        return login;
+        return user;
       }
 
-      post(cadastrarLogin:login):Observable<login> {
-        return this.http.post<login>(`${this.apiUrl}/user`, cadastrarLogin).pipe(
+      post(cadastrarUsuario:user):Observable<user> {
+        return this.http.post<user>(`${this.apiUrl}/users`, cadastrarUsuario).pipe(
           tap(() => {
             this.showMessage('Login e senha cadastrado com sucesso');
           }),
@@ -47,6 +48,16 @@ export class LoginService {
             return of(error);
           })
         );
+      }
+
+      delete(id:string):Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/users/${id}`).pipe(
+          tap(() => this.showMessage("Usuário deletado com sucesso!")),
+          catchError((error) => {
+            this.showMessage(`Erro ao deletar usuário; ${error.message || error}`);
+            return of(error);
+          })
+        )
       }
 
   }

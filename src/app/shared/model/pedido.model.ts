@@ -15,7 +15,8 @@ export interface CardDoces {
     imagem:string;
 }
 
-export interface login {
+export interface user {
+    _id?:string;
     email:string;
     senha:string;
 }

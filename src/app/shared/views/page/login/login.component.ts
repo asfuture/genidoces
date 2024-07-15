@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from '../../../services/login.service';
-import { login } from '../../../model/pedido.model';
+import { UserService } from '../../../services/user.service';
+import { user } from '../../../model/pedido.model';
 import { CryptoService } from '../../../services/crypto.service';
 import {  Subject, takeUntil } from 'rxjs';
 
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   constructor( 
     private formBuilder:FormBuilder,
-    private loginService:LoginService,
+    private userService:UserService,
     private cryptoService:CryptoService,
     private router:Router
    ){}
@@ -40,10 +40,10 @@ ngOnInit(): void {
         const email = JSON.stringify(valor.email);
         const senha = JSON.stringify(valor.senha);
 
-          this.loginService.get().pipe(
+          this.userService.get().pipe(
            takeUntil(this.unsubscribe))
            .subscribe({
-             next: (response:login[] | null ) => {
+             next: (response:user[] | null ) => {
                  const apiEmailSenha = response;
                  for ( const item of apiEmailSenha! ) {
                   const emailDecreptado = this.cryptoService.decryptData(item.email);
@@ -51,7 +51,7 @@ ngOnInit(): void {
           
                       if (emailDecreptado == email && senhaDecreptado == senha ) {
                           console.log(" Acesso ok!")
-                          this.router.navigate(['lista']);
+                          this.router.navigate(['cadastrar']);
                           break;
                       } else {
                         console.log(" Acesso negado!")

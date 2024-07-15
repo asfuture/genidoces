@@ -1,0 +1,54 @@
+<nav>
+    <div class="nav-wrapper">
+      <img class="brand" routerLink="/home" src="../../../assets/logotipo.jpg" alt="Logo">
+    </div>
+  </nav>
+  <h4>Cadastrar novo usuário</h4>
+  <div class="conatiner">
+    <form [formGroup]="cadastrarUsuario" (ngSubmit)="onSubmit()">
+        
+        <label for="">Criar login do usuário:</label>
+        <input type="email" name="email" formControlName="email">
+        <ng-container *ngIf="cadastrarUsuario">
+            <span *ngIf="">
+                Campo obrigatório!
+            </span>
+        </ng-container><br><br><br>
+        
+        <label for="">Criar senha do usuário:</label>
+        <input type="password" name="senha" formControlName="senha">
+        <ng-container *ngIf="cadastrarUsuario">
+            <span *ngIf="">
+                Campo obrigatório!
+            </span>
+        </ng-container><br>
+        <button class="btn waves-effect waves-light" type="submit" [disabled]="">Cadastrar usuário
+          </button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th hidden>ID</th>
+                <th>Email</th>
+                <th>Senha</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr *ngFor="let item of user">
+                <td hidden>{{removeAspas(item._id!)}}</td>
+                <td>{{removeAspas(item.email)}}</td>
+                <td>{{removeAspas(item.senha)}}</td>
+                <td>
+                    <button class="editar">Editar</button>
+                    <button class="deletar" (click)="deletar(item._id!)">Deletar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
+
+

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { LoginService } from '../../../services/login.service';
-import { login } from '../../../model/pedido.model';
+import { UserService} from '../../../services/user.service';
+import { user } from '../../../model/pedido.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CryptoService } from '../../../services/crypto.service';
 import {  Subject, takeUntil } from 'rxjs';
@@ -21,7 +21,7 @@ export class ListaCardComponent implements OnInit{
 
   constructor( 
     private formBuilder:FormBuilder,
-    private loginService:LoginService,
+    private userService:UserService,
     private cryptoService:CryptoService
    ){}
 
@@ -41,10 +41,10 @@ export class ListaCardComponent implements OnInit{
          const emailEncryptado = this.cryptoService.encryptData(email);
          const senhaEncryptada  = this.cryptoService.encryptData(senha);
       
-            this.loginService.post({email:emailEncryptado, senha:senhaEncryptada} ).pipe(
+            this.userService.post({email:emailEncryptado, senha:senhaEncryptada} ).pipe(
              takeUntil(this.unsubscribe))
              .subscribe({
-              next: (response:login) => {
+              next: (response:user) => {
              
               }, 
                error:(error) => {
