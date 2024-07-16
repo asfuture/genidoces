@@ -98,6 +98,10 @@ export class CadastrarUsuarioComponent implements OnInit {
   }
  }
 
+ editar(id:string) {
+  alert('Editar')
+ }
+
  removeAspas(str: string): string {
   return str.replace(/^"|"$/g, '');
   }

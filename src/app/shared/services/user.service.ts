@@ -50,6 +50,29 @@ export class UserService {
         );
       }
 
+      
+  update(atualizarUsuario:user):Observable<user> {
+    return this.http.put<user>(`${this.apiUrl}/${atualizarUsuario._id}`, atualizarUsuario).pipe(
+      tap(() => this.showMessage("Usuário atualizado com sucesso!")),
+      catchError((error) => {
+        this.showMessage(`Erro ao atualizar usuário; ${error.message || error}`);
+        return of(error);
+      })
+    );
+  }
+  
+
+  patch(id:string, changes:Partial<user>):Observable<user> {
+    return this.http.patch<user>(`${this.apiUrl}/${id}`, changes).pipe(
+      tap(() => this.showMessage("Dados atualizados com sucesso!")),
+      catchError((error) => {
+        this.showMessage(`Erro ao atualizar dados; ${error.message || error}`);
+        return of(error);
+      })
+    );
+  }
+
+
       delete(id:string):Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/users/${id}`).pipe(
           tap(() => this.showMessage("Usuário deletado com sucesso!")),

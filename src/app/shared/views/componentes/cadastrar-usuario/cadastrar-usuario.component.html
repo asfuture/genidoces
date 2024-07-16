@@ -42,7 +42,7 @@
                 <td>{{removeAspas(item.email)}}</td>
                 <td>{{removeAspas(item.senha)}}</td>
                 <td>
-                    <button class="editar">Editar</button>
+                    <button class="editar" (click)="editar(item._id!)">Editar</button>
                     <button class="deletar" (click)="deletar(item._id!)">Deletar</button>
                 </td>
             </tr>
