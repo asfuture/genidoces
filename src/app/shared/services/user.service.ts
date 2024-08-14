@@ -36,7 +36,7 @@ export class UserService {
           })
       );
         return user;
-      }
+    }
 
       post(cadastrarUsuario:user):Observable<user> {
         return this.http.post<user>(`${this.apiUrl}/users`, cadastrarUsuario).pipe(

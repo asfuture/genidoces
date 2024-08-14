@@ -55,6 +55,7 @@ export class CadastrarUsuarioComponent implements OnInit {
   }
 
   onSubmit():void {
+
     if(this.cadastrarUsuario.valid) {
       console.log("lista comparar",this.user) ;
 
@@ -75,7 +76,7 @@ export class CadastrarUsuarioComponent implements OnInit {
              takeUntil(this.unsubscribe))
              .subscribe({
               next: (response:user) => {
-          
+                 console.log("teste", response)
               }, 
                error:(error) => {
                console.log('Erro ao fazer requisição dos cards',error, )
@@ -102,8 +103,11 @@ export class CadastrarUsuarioComponent implements OnInit {
   alert('Editar')
  }
 
- removeAspas(str: string): string {
-  return str.replace(/^"|"$/g, '');
+ removeAspas(str: string | undefined | null): string {
+    if (!str) {
+      return ''; // Retorna uma string vazia se 'str' for undefined ou null
+    }
+    return str.replace(/^"|"$/g, '');
   }
 
 }

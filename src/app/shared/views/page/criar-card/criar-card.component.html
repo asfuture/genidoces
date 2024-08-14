@@ -1,0 +1,40 @@
+<nav>
+    <div class="nav-wrapper">
+      <img class="brand" routerLink="/home" src="../../../assets/logotipo.jpg" alt="Logo">
+    </div>
+</nav>
+<h4>Criar novo Card</h4>
+<section>
+    <form [formGroup]="criarCard" (ngSubmit)="onSubmit()">
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" name="titulo" formControlName="titulo" required>
+
+        <label for="descricao">Descrição</label>
+        <textarea id="descricao" name="descricao" rows="4" formControlName="descricao" required></textarea>
+        <label for="link">Link</label>
+        <input type="text" id="link" name="link" value="Faça seu pedido agora!" formControlName="link" required>
+
+        <label for="whatsapp">WhatsApp</label>
+        <input type="text" id="whatsapp" name="whatsapp" value="+55 (11) 91234-5678" formControlName="whatsapp" required>
+
+        <label for="imagem">Imagem</label>
+        <input type="file" id="imagem" name="imagem" formControlName="imagem" (change)="onFileChange($event)" accept="image/*" required>
+
+        <button class="btn waves-effect waves-light" type="submit" [disabled]="" type="submit">Criar card</button>
+    </form>
+
+    <div>
+        <div class="card">
+            <div class="card-image ">
+            <img *ngIf="imagemPreview" [src]="imagemPreview" alt="Pré-visualização da Imagem"/>
+            <span class="card-title">{{ criarCard.get('titulo')?.value }}</span>
+            </div>
+            <div class="card-content">
+            <p>{{ criarCard.get('descricao')?.value }}</p>
+            </div>
+            <div class="card-action">
+            <a href="{{ criarCard.get('whatsapp')?.value }}">{{ criarCard.get('link')?.value }}</a>
+            </div>
+        </div>
+    </div>
+</section>
