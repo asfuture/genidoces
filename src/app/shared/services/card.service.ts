@@ -35,7 +35,7 @@ export class CardService {
   post(card:CardDoces):Observable<CardDoces> {
     return this.http.post<CardDoces>(`${this.apiUrl}/cards`, card).pipe(
       tap(() => {
-        this.showMessage('Pedido enviado com sucesso');
+        this.showMessage('Card enviado com sucesso');
       }),
       catchError((error) => {
         this.showMessage(`Erro ao enviar pedido: ${error.message || error}`);
