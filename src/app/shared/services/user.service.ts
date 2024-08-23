@@ -26,7 +26,6 @@ export class UserService {
   get() {
         const user = this.http.get<user[]>(`${this.apiUrl}/users`,)
         .pipe(
-          tap(console.log),
           tap(() => {
             this.showMessage("lista de pedidos obtida com sucesso!")
           }),
@@ -38,7 +37,7 @@ export class UserService {
         return user;
     }
 
-      post(cadastrarUsuario:user):Observable<user> {
+  post(cadastrarUsuario:user):Observable<user> {
         return this.http.post<user>(`${this.apiUrl}/users`, cadastrarUsuario).pipe(
           tap(() => {
             this.showMessage('Login e senha cadastrado com sucesso');
@@ -47,12 +46,12 @@ export class UserService {
             this.showMessage(`Erro ao cadastrar login e senha: ${error.message || error}`);
             return of(error);
           })
-        );
-      }
+      );
+  }
 
       
   update(atualizarUsuario:user):Observable<user> {
-    return this.http.put<user>(`${this.apiUrl}/${atualizarUsuario._id}`, atualizarUsuario).pipe(
+    return this.http.put<user>(`${this.apiUrl}/users/${atualizarUsuario._id}`, atualizarUsuario).pipe(
       tap(() => this.showMessage("Usuário atualizado com sucesso!")),
       catchError((error) => {
         this.showMessage(`Erro ao atualizar usuário; ${error.message || error}`);

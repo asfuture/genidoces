@@ -51,4 +51,29 @@
     
 </div>
 
+<form class="atualizarUsuario" [formGroup]="atualizarUsuario" *ngIf="editarUsuario != false;">
+    <div class="containerAtualizar">
+        <button class="close" (click)="close()">X</button>
+        <h4>Atualizar Usuário</h4>
+        <input type="text" name="id" formControlName="id" hidden="true">
+    <label for="">Atualizar login do usuário:</label>
+    <input type="email" name="email" formControlName="email">
+    <ng-container *ngIf="cadastrarUsuario">
+        <span *ngIf="">
+            Campo obrigatório!
+        </span>
+    </ng-container><br><br><br>
+    
+    <label for="">Atualizar senha do usuário:</label>
+    <input type="text" name="senha" formControlName="senha">
+    <ng-container *ngIf="cadastrarUsuario">
+        <span *ngIf="">
+            Campo obrigatório!
+        </span>
+    </ng-container><br>
+    <button class="btn waves-effect waves-light" (click)="atualizar()" >Atualizar
+      </button>
+    </div>
+</form>
+
 

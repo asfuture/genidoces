@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router,RouterModule } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { user } from '../../../model/pedido.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -11,14 +11,17 @@ import {  Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-cadastrar-usuario',
   standalone: true,
-  imports: [ReactiveFormsModule, HttpClientModule, CommonModule],
+  imports: [ReactiveFormsModule, HttpClientModule, CommonModule,RouterModule],
   templateUrl: './cadastrar-usuario.component.html',
   styleUrl: './cadastrar-usuario.component.css',
   providers:[HttpClient]
 })
-export class CadastrarUsuarioComponent implements OnInit {
-   user: user[] = [];
-  cadastrarUsuario:any = FormGroup;
+export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
+  user: user[] = [];
+  cadastrarUsuario!: FormGroup;
+  atualizarUsuario!: FormGroup;
+  editarUsuario:boolean = false;
+  atualizarEmail:String='';
   private unsubscribe = new Subject<void>();
 
   constructor( 
@@ -34,7 +37,6 @@ export class CadastrarUsuarioComponent implements OnInit {
       senha: ['', [Validators.required, Validators.maxLength(4)]],
    });
 
-   if(this.user) {
       this.userService.get().pipe(
        takeUntil(this.unsubscribe))
        .subscribe({
@@ -51,63 +53,102 @@ export class CadastrarUsuarioComponent implements OnInit {
          console.log('Erro ao fazer requisição dos cards',error, )
          }
        });
+    
+  }
+
+  // validação de email
+  onSubmit():void {
+    let valor = 0 ;
+    for (const email of this.user) {
+      if (email.email === this.cadastrarUsuario.value.email){
+          //console.log("Email já cadastrado!")
+          valor = 1;
+      } 
+    }
+
+    if(valor == 0){
+      this.criarNovoUsuario()
+    } else {
+      alert("Esse email já está cadastrado!")
+    }
+ }
+
+ criarNovoUsuario() {
+      if(this.cadastrarUsuario.valid) {
+        const valor = this.cadastrarUsuario.value;
+        const emailEncryptado = this.cryptoService.encryptData(valor.email);
+        const senhaEncryptada = this.cryptoService.encryptData(valor.senha);
+        
+           this.userService.post({email:emailEncryptado, senha:senhaEncryptada} ).pipe(
+            takeUntil(this.unsubscribe))
+            .subscribe({
+             next: (response) => {
+                this.route.navigate(['/cadastrar']);
+             }, 
+              error:(error) => {
+              console.log('Erro ao fazer requisição dos cards',error, )
+              }
+            });
+         this.cadastrarUsuario.reset();
+    }
+ }
+ 
+ editar(id:string) {
+  this.editarUsuario = true
+  for(const valorId of this.user){
+        if(id == valorId._id){
+          this.atualizarUsuario = this.formBuilder.group({
+            id:[id],
+            email: [this.removeAspas(valorId.email), [Validators.required, Validators.maxLength(40)]],
+            senha: [this.removeAspas(valorId.senha), [Validators.required, Validators.maxLength(4)]],
+         });
+      }
     }
   }
 
-  onSubmit():void {
+ atualizar(){
+  this.editarUsuario = false
+  const valor = this.atualizarUsuario.value;
+  const emailEncryptado = this.cryptoService.encryptData(valor.email);
+  const senhaEncryptada = this.cryptoService.encryptData(valor.senha);
 
-    if(this.cadastrarUsuario.valid) {
-      console.log("lista comparar",this.user) ;
+  this.userService.update({_id:valor.id, email:emailEncryptado, senha:senhaEncryptada} ).pipe(
+    takeUntil(this.unsubscribe))
+    .subscribe({
+     next: (response:user) => {}, 
+      error:(error) => {
+      console.log('Erro ao fazer requisição dos cards',error, )
+      }
+    });
+ }
 
-      // for (let item of this.user){
-          
-      //   console.log('use', item.email," igual ", this.cadastrarUsuario.value.email )
-      // }
-        
-      
-         const valor = this.cadastrarUsuario.value;
-         const email = JSON.stringify(valor.email);
-         const senha = JSON.stringify(valor.senha);
-      
-         const emailEncryptado = this.cryptoService.encryptData(email);
-         const senhaEncryptada  = this.cryptoService.encryptData(senha);
-      
-            this.userService.post({email:emailEncryptado, senha:senhaEncryptada} ).pipe(
-             takeUntil(this.unsubscribe))
-             .subscribe({
-              next: (response:user) => {
-                 console.log("teste", response)
-              }, 
-               error:(error) => {
-               console.log('Erro ao fazer requisição dos cards',error, )
-               }
-             });
-      this.cadastrarUsuario.reset();
+ close(){
+  this.editarUsuario = false
+ }
+
+  deletar (id:string):void {
+    const resposta = confirm("Deseja realmente deletar esse usuário?",);
+    if (resposta) {
+        alert(`Item deletado com sucesso, ${id}`);
+        this.userService.delete(id).pipe(
+          takeUntil(this.unsubscribe)
+        ).subscribe({
+          next: () => console.log("Usuário deletado com sucesso."),
+          error: err => console.error('Erro ao deletar usuário: ', err)
+        });
+    }
    }
- }
 
- deletar (id:string):void {
-  const resposta = confirm("Deseja realmente deletar esse usuário?",);
-  if (resposta) {
-      alert(`Item deletado com sucesso, ${id}`);
-      this.userService.delete(id).pipe(
-        takeUntil(this.unsubscribe)
-      ).subscribe({
-        next: () => console.log("Usuário deletado com sucesso."),
-        error: err => console.error('Erro ao deletar usuário: ', err)
-      });
-  }
- }
-
- editar(id:string) {
-  alert('Editar')
- }
-
- removeAspas(str: string | undefined | null): string {
+   removeAspas(str: string | undefined | null): string {
     if (!str) {
       return ''; // Retorna uma string vazia se 'str' for undefined ou null
     }
     return str.replace(/^"|"$/g, '');
   }
-
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
 }
+  
+
