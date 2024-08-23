@@ -51,7 +51,10 @@
     
 </div>
 
-<form [formGroup]="atualizarUsuario" *ngIf="editarUsuario != false;">
+<form class="atualizarUsuario" [formGroup]="atualizarUsuario" *ngIf="editarUsuario != false;">
+    <div class="containerAtualizar">
+        <button class="close" (click)="close()">X</button>
+        <h4>Atualizar Usuário</h4>
         <input type="text" name="id" formControlName="id" hidden="true">
     <label for="">Atualizar login do usuário:</label>
     <input type="email" name="email" formControlName="email">
@@ -70,6 +73,7 @@
     </ng-container><br>
     <button class="btn waves-effect waves-light" (click)="atualizar()" >Atualizar
       </button>
+    </div>
 </form>
 
 

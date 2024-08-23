@@ -77,6 +77,31 @@ table {
     background-color: #f41d1d;
   }
   
+  .atualizarUsuario{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background: #000000c2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: -350px;
+    z-index: 3;
+  }
+  .containerAtualizar {
+    width: 500px;
+    border-radius: 5px;
+    background: white;
+    padding: 20px;
+  }
+.close{
+  background: #f41d1d;
+  position: relative;
+  float: right;
+  top: -17px;
+  right: -23px;
+}
 
 @media screen and (max-width:600px) {
 

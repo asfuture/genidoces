@@ -22,7 +22,6 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
   atualizarUsuario!: FormGroup;
   editarUsuario:boolean = false;
   atualizarEmail:String='';
-  atualizarSenha:Number= 5252 ;
   private unsubscribe = new Subject<void>();
 
   constructor( 
@@ -57,28 +56,43 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
     
   }
 
+  // validação de email
   onSubmit():void {
-    if(this.cadastrarUsuario.valid) {
-         const valor = this.cadastrarUsuario.value;
-         const emailEncryptado = this.cryptoService.encryptData(valor.email);
-         const senhaEncryptada = this.cryptoService.encryptData(valor.senha);
-         
-            this.userService.post({email:emailEncryptado, senha:senhaEncryptada} ).pipe(
-             takeUntil(this.unsubscribe))
-             .subscribe({
-              next: (response) => {
-                 console.log("teste", response);
-                 this.route.navigate(['/cadastrar']);
+    let valor = 0 ;
+    for (const email of this.user) {
+      if (email.email === this.cadastrarUsuario.value.email){
+          //console.log("Email já cadastrado!")
+          valor = 1;
+      } 
+    }
 
-              }, 
-               error:(error) => {
-               console.log('Erro ao fazer requisição dos cards',error, )
-               }
-             });
-      this.cadastrarUsuario.reset();
-   }
+    if(valor == 0){
+      this.criarNovoUsuario()
+    } else {
+      alert("Esse email já está cadastrado!")
+    }
  }
 
+ criarNovoUsuario() {
+      if(this.cadastrarUsuario.valid) {
+        const valor = this.cadastrarUsuario.value;
+        const emailEncryptado = this.cryptoService.encryptData(valor.email);
+        const senhaEncryptada = this.cryptoService.encryptData(valor.senha);
+        
+           this.userService.post({email:emailEncryptado, senha:senhaEncryptada} ).pipe(
+            takeUntil(this.unsubscribe))
+            .subscribe({
+             next: (response) => {
+                this.route.navigate(['/cadastrar']);
+             }, 
+              error:(error) => {
+              console.log('Erro ao fazer requisição dos cards',error, )
+              }
+            });
+         this.cadastrarUsuario.reset();
+    }
+ }
+ 
  editar(id:string) {
   this.editarUsuario = true
   for(const valorId of this.user){
@@ -101,13 +115,15 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
   this.userService.update({_id:valor.id, email:emailEncryptado, senha:senhaEncryptada} ).pipe(
     takeUntil(this.unsubscribe))
     .subscribe({
-     next: (response:user) => {
-        console.log("teste", response)
-     }, 
+     next: (response:user) => {}, 
       error:(error) => {
       console.log('Erro ao fazer requisição dos cards',error, )
       }
     });
+ }
+
+ close(){
+  this.editarUsuario = false
  }
 
   deletar (id:string):void {
