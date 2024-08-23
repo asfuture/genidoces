@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router,RouterModule } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { user } from '../../../model/pedido.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -11,14 +11,18 @@ import {  Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-cadastrar-usuario',
   standalone: true,
-  imports: [ReactiveFormsModule, HttpClientModule, CommonModule],
+  imports: [ReactiveFormsModule, HttpClientModule, CommonModule,RouterModule],
   templateUrl: './cadastrar-usuario.component.html',
   styleUrl: './cadastrar-usuario.component.css',
   providers:[HttpClient]
 })
-export class CadastrarUsuarioComponent implements OnInit {
-   user: user[] = [];
-  cadastrarUsuario:any = FormGroup;
+export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
+  user: user[] = [];
+  cadastrarUsuario!: FormGroup;
+  atualizarUsuario!: FormGroup;
+  editarUsuario:boolean = false;
+  atualizarEmail:String='';
+  atualizarSenha:Number= 5252 ;
   private unsubscribe = new Subject<void>();
 
   constructor( 
@@ -34,7 +38,6 @@ export class CadastrarUsuarioComponent implements OnInit {
       senha: ['', [Validators.required, Validators.maxLength(4)]],
    });
 
-   if(this.user) {
       this.userService.get().pipe(
        takeUntil(this.unsubscribe))
        .subscribe({
@@ -51,32 +54,22 @@ export class CadastrarUsuarioComponent implements OnInit {
          console.log('Erro ao fazer requisição dos cards',error, )
          }
        });
-    }
+    
   }
 
   onSubmit():void {
-
     if(this.cadastrarUsuario.valid) {
-      console.log("lista comparar",this.user) ;
-
-      // for (let item of this.user){
-          
-      //   console.log('use', item.email," igual ", this.cadastrarUsuario.value.email )
-      // }
-        
-      
          const valor = this.cadastrarUsuario.value;
-         const email = JSON.stringify(valor.email);
-         const senha = JSON.stringify(valor.senha);
-      
-         const emailEncryptado = this.cryptoService.encryptData(email);
-         const senhaEncryptada  = this.cryptoService.encryptData(senha);
-      
+         const emailEncryptado = this.cryptoService.encryptData(valor.email);
+         const senhaEncryptada = this.cryptoService.encryptData(valor.senha);
+         
             this.userService.post({email:emailEncryptado, senha:senhaEncryptada} ).pipe(
              takeUntil(this.unsubscribe))
              .subscribe({
-              next: (response:user) => {
-                 console.log("teste", response)
+              next: (response) => {
+                 console.log("teste", response);
+                 this.route.navigate(['/cadastrar']);
+
               }, 
                error:(error) => {
                console.log('Erro ao fazer requisição dos cards',error, )
@@ -86,28 +79,60 @@ export class CadastrarUsuarioComponent implements OnInit {
    }
  }
 
- deletar (id:string):void {
-  const resposta = confirm("Deseja realmente deletar esse usuário?",);
-  if (resposta) {
-      alert(`Item deletado com sucesso, ${id}`);
-      this.userService.delete(id).pipe(
-        takeUntil(this.unsubscribe)
-      ).subscribe({
-        next: () => console.log("Usuário deletado com sucesso."),
-        error: err => console.error('Erro ao deletar usuário: ', err)
-      });
-  }
- }
-
  editar(id:string) {
-  alert('Editar')
+  this.editarUsuario = true
+  for(const valorId of this.user){
+        if(id == valorId._id){
+          this.atualizarUsuario = this.formBuilder.group({
+            id:[id],
+            email: [this.removeAspas(valorId.email), [Validators.required, Validators.maxLength(40)]],
+            senha: [this.removeAspas(valorId.senha), [Validators.required, Validators.maxLength(4)]],
+         });
+      }
+    }
+  }
+
+ atualizar(){
+  this.editarUsuario = false
+  const valor = this.atualizarUsuario.value;
+  const emailEncryptado = this.cryptoService.encryptData(valor.email);
+  const senhaEncryptada = this.cryptoService.encryptData(valor.senha);
+
+  this.userService.update({_id:valor.id, email:emailEncryptado, senha:senhaEncryptada} ).pipe(
+    takeUntil(this.unsubscribe))
+    .subscribe({
+     next: (response:user) => {
+        console.log("teste", response)
+     }, 
+      error:(error) => {
+      console.log('Erro ao fazer requisição dos cards',error, )
+      }
+    });
  }
 
- removeAspas(str: string | undefined | null): string {
+  deletar (id:string):void {
+    const resposta = confirm("Deseja realmente deletar esse usuário?",);
+    if (resposta) {
+        alert(`Item deletado com sucesso, ${id}`);
+        this.userService.delete(id).pipe(
+          takeUntil(this.unsubscribe)
+        ).subscribe({
+          next: () => console.log("Usuário deletado com sucesso."),
+          error: err => console.error('Erro ao deletar usuário: ', err)
+        });
+    }
+   }
+
+   removeAspas(str: string | undefined | null): string {
     if (!str) {
       return ''; // Retorna uma string vazia se 'str' for undefined ou null
     }
     return str.replace(/^"|"$/g, '');
   }
-
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
 }
+  
+
