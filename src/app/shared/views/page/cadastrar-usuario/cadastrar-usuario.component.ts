@@ -44,7 +44,6 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
              for ( const item of response! ) {
               const emailDecreptado =  this.cryptoService.decryptData(item.email);
               const senhaDecreptado  = this.cryptoService.decryptData(item.senha);
-              
               this.user.push({ email:emailDecreptado, senha:senhaDecreptado,_id:item._id});
              }
              this.user.reverse();
@@ -53,7 +52,6 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
          console.log('Erro ao fazer requisição dos cards',error, )
          }
        });
-    
   }
 
   // validação de email
@@ -78,7 +76,6 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
         const valor = this.cadastrarUsuario.value;
         const emailEncryptado = this.cryptoService.encryptData(valor.email);
         const senhaEncryptada = this.cryptoService.encryptData(valor.senha);
-        
            this.userService.post({email:emailEncryptado, senha:senhaEncryptada} ).pipe(
             takeUntil(this.unsubscribe))
             .subscribe({
@@ -108,11 +105,10 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
 
  atualizar(){
   this.editarUsuario = false
-  const valor = this.atualizarUsuario.value;
-  const emailEncryptado = this.cryptoService.encryptData(valor.email);
-  const senhaEncryptada = this.cryptoService.encryptData(valor.senha);
+  const emailEncryptado = this.cryptoService.encryptData(this.atualizarUsuario.value.email);
+  const senhaEncryptada = this.cryptoService.encryptData(this.atualizarUsuario.value.senha);
 
-  this.userService.update({_id:valor.id, email:emailEncryptado, senha:senhaEncryptada} ).pipe(
+  this.userService.update({_id:this.atualizarUsuario.value.id, email:emailEncryptado, senha:senhaEncryptada} ).pipe(
     takeUntil(this.unsubscribe))
     .subscribe({
      next: (response:user) => {}, 
@@ -145,6 +141,7 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
     }
     return str.replace(/^"|"$/g, '');
   }
+
   ngOnDestroy(): void {
     this.unsubscribe.next();
     this.unsubscribe.complete();
