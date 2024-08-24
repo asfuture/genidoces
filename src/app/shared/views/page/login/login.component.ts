@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -16,9 +16,10 @@ import {  Subject, takeUntil } from 'rxjs';
   styleUrl: './login.component.css',
   providers:[HttpClient]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
-  login:any = FormGroup;
+  login!:FormGroup;
+  loginUsuario:any = '';
   private unsubscribe = new Subject<void>();
 
   constructor( 
@@ -34,35 +35,48 @@ ngOnInit(): void {
     senha: ['', [Validators.required, Validators.maxLength(4)]],
  });
 }
+
   onSubmit() {
    if(this.login.valid) {
-        const valor = this.login.value;
-        const email = JSON.stringify(valor.email);
-        const senha = JSON.stringify(valor.senha);
-
-          this.userService.get().pipe(
-           takeUntil(this.unsubscribe))
-           .subscribe({
-             next: (response:user[] | null ) => {
-                 const apiEmailSenha = response;
-                 for ( const item of apiEmailSenha! ) {
-                  const emailDecreptado = this.cryptoService.decryptData(item.email);
-                  const senhaDecreptado  = this.cryptoService.decryptData(item.senha);
-          
-                      if (emailDecreptado == email && senhaDecreptado == senha ) {
-                          console.log(" Acesso ok!")
-                          this.router.navigate(['cadastrar']);
-                          break;
-                      } else {
-                        console.log(" Acesso negado!")
-                      }
-                 }
-             }, 
-             error:(error) => {
-             console.log('Erro ao fazer requisição dos cards',error, )
-             }
-           })
-     this.login.reset();
+     this.getLoginUsuario();
    }
  }
+ 
+ getLoginUsuario() {
+  this.userService.get().pipe(
+    takeUntil(this.unsubscribe))
+    .subscribe({
+      next: (response:user[] | null ) => {
+        this.loginUsuario = response;
+        //Chama validação de mail e senha
+        this.validarEmail()
+      }, 
+      error:(error) => {
+      console.log('Erro ao fazer requisição dos usuários',error, )
+      }
+    })
+ }
+
+ // validação de email
+   validarEmail() {
+    var valor = 0;
+     for (const usuario of this.loginUsuario) {
+       if (this.cryptoService.decryptData(usuario.email) === this.login.value.email && this.cryptoService.decryptData(usuario.senha) === this.login.value.senha ){
+           this.router.navigate(['cadastrar']);
+           valor = 1;
+           break;
+       }  
+     }
+
+     if(valor == 0){
+      alert("Verifique o seu Email e Senha! Por Favor!");
+     }
+
+   }
+
+   ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+
 }
