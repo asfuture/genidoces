@@ -18,8 +18,8 @@ import {  Subject, takeUntil } from 'rxjs';
 })
 export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
   user: user[] = [];
-  cadastrarUsuario!: FormGroup;
-  atualizarUsuario!: FormGroup;
+  cadastrarUsuario:any = FormGroup;
+  atualizarUsuario:any = FormGroup;
   editarUsuario:boolean = false;
   atualizarEmail:String='';
   private unsubscribe = new Subject<void>();

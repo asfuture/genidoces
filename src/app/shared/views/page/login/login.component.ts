@@ -18,7 +18,7 @@ import {  Subject, takeUntil } from 'rxjs';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  login!:FormGroup;
+  login:any = FormGroup;
   loginUsuario:any = '';
   private unsubscribe = new Subject<void>();
 

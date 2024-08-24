@@ -9,14 +9,14 @@
         <label for="">Digite o seu login:</label>
         <input type="email" name="email" formControlName="email">
         <ng-container *ngIf="login.controls.email.touched">
-            <span *ngIf="login.controls.nome.errors">
+            <span *ngIf="login.controls.email.errors">
                 Campo obrigatório!
             </span>
         </ng-container><br><br><br>
         
         <label for="">Digite a sua senha:</label>
         <input type="password" name="senha" formControlName="senha">
-        <ng-container *ngIf="login.controls.telefone.touched">
+        <ng-container *ngIf="login.controls.senha.touched">
             <span *ngIf="login.controls.senha.errors">
                 Campo obrigatório!
             </span>
