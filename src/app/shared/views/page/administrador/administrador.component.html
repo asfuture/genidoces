@@ -1,0 +1,13 @@
+<nav>
+    <div class="nav-wrapper">
+      <img class="brand" routerLink="/adminstrador" src="../../../assets/logotipo.jpg" alt="Logo">
+    </div>
+  </nav>
+  <section><button (click)="click(1)">Criar Card</button> <button (click)="click(2)">Criar Usuário</button> <button (click)="click(3)">Lista Card</button> <button (click)="click(4)">Lista Pedido</button></section>
+
+  
+    <app-cadastrar-usuario *ngIf="cadastrarUsuario != 0"></app-cadastrar-usuario>
+    <app-criar-card *ngIf="criarCard != 0"></app-criar-card>
+    <app-sessao-doces *ngIf="listaCardSessaoDoces != 0" ></app-sessao-doces>
+    <app-lista-pedido *ngIf="listaPedido != 0"></app-lista-pedido>
+

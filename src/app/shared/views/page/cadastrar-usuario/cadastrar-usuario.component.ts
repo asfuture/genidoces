@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CryptoService } from '../../../services/crypto.service';
 import {  Subject, takeUntil } from 'rxjs';
 
+
 @Component({
   selector: 'app-cadastrar-usuario',
   standalone: true,

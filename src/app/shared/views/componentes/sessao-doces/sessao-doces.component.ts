@@ -1,28 +1,33 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient,HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { CardService } from '../../../services/card.service';
 import { Subject, takeUntil } from 'rxjs';
 import { CardDoces } from '../../../model/pedido.model';
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-sessao-doces',
   standalone: true,
-  imports: [CommonModule,HttpClientModule],
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './sessao-doces.component.html',
   styleUrl: './sessao-doces.component.css',
   providers:[HttpClient]
 })
 export class SessaoDocesComponent implements OnInit, OnDestroy {
   card:CardDoces[] | null = [];
+  administrador:string = '';
   
   private unsubscribe = new Subject<void>();
 
-  constructor (public cardService:CardService){}
+  constructor (
+    public cardService:CardService,
+    private router:Router){}
 
  ngOnInit(): void {
+  this.administrador = this.router.url;
   this.get();
  }
 
