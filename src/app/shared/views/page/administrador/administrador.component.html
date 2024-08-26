@@ -3,7 +3,9 @@
       <img class="brand" routerLink="/adminstrador" src="../../../assets/logotipo.jpg" alt="Logo">
     </div>
   </nav>
-  <section><button (click)="click(1)">Criar Card</button> <button (click)="click(2)">Criar Usuário</button> <button (click)="click(3)">Lista Card</button> <button (click)="click(4)">Lista Pedido</button></section>
+  <div class="btnConteiner">
+    <button class="waves-effect waves-dark btn-small" (click)="click(1)">Criar</button> <button class="waves-effect waves-dark btn-small" (click)="click(3)">Cards</button> <button class="waves-effect waves-dark btn-small" (click)="click(4)">Pedido</button><button class="waves-effect waves-dark btn-small" (click)="click(2)">Usuários</button>
+  </div>
 
   
     <app-cadastrar-usuario *ngIf="cadastrarUsuario != 0"></app-cadastrar-usuario>

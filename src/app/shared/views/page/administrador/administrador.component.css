@@ -12,3 +12,15 @@ nav {
 .nav-wrapper {
     padding: 0px 30px;
 }
+.btnConteiner {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 5px;
+    font-size: 15px;
+}
+.btn:hover, .btn-small:hover {
+    border: 1px solid black;
+    background-color: #ee6e73;
+    color: black;
+}

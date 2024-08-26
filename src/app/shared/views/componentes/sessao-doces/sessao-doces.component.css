@@ -24,18 +24,18 @@ h4{
 .card-action:last-child{
     text-align: center;
 }
-.btnEditaDelete {
+.containerBtnDelete {
     display: flex;
     justify-content: space-around;
 }
-.delete {
+.btn-small {
     background: red;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
-.delete:hover {
-    color: #fff;
+.btn:hover, .btn-small:hover {
+    border: 1px solid black;
+    background-color: #ee6e73;
+    color: black;
 }
 
 
