@@ -133,7 +133,7 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
           next: () => console.log("Usuário deletado com sucesso."),
           error: err => console.error('Erro ao deletar usuário: ', err)
         });
-    }
+      }
    }
 
    removeAspas(str: string | undefined | null): string {

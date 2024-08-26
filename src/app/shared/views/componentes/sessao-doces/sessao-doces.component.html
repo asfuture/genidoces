@@ -6,7 +6,7 @@
         <h4 *ngIf="administrador == '/administrador'">Lista de Cards</h4>
         <div class="col s12 m4 l3" *ngFor="let item of card">
             <div class="btnEditaDelete" *ngIf="administrador == '/administrador'">
-                <button class="editar">Editar</button> <button class="delete" >Deleta</button>
+                <button class="delete" (click)="deleteCard(item._id.toString())">Deleta Card</button>
             </div>
             
         <div class="card col s12">
@@ -24,7 +24,5 @@
         </div>
         
     </div>
-    <form *ngIf="administrador == '/administrador'" >
-        <input type="text" value="{{card?.values?.name}}">
-    </form>
+    
 

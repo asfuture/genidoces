@@ -33,12 +33,9 @@ h4{
     border-radius: 5px;
     cursor: pointer;
 }
-.editar{
-    background-color: #1da2f4;
-    border-radius: 5px;
-    cursor: pointer;
-}
 
-.editar:hover, .delete:hover {
+.delete:hover {
     color: #fff;
 }
+
+
