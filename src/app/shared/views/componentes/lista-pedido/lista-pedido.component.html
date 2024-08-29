@@ -1,1 +1,23 @@
-<p>lista-pedido works!</p>
+<h4>Lista de Pedidos</h4>
+
+<table class="striped responsive-table centered" border="1" cellspacing="0" cellpadding="8">
+    <thead>
+      <tr>
+        <th hidden="true">ID</th>
+        <th>Nome</th>
+        <th>Telefone</th>
+        <th>Endereço</th>
+        <th>Mensagem</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contato of pedido">
+        <td hidden="true">{{ contato._id }}</td>
+        <td>{{ contato.nome }}</td>
+        <td>{{ contato.telefone }}</td>
+        <td>{{ contato.endereco }}</td>
+        <td>{{ contato.mensagem }}</td>
+      </tr>
+    </tbody>
+  </table>
+  

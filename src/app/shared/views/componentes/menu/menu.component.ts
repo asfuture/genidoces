@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-//declare var M:any;
 
 @Component({
   selector: 'app-menu',

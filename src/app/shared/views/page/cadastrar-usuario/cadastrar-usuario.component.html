@@ -1,24 +1,20 @@
-<nav>
-    <div class="nav-wrapper">
-      <img class="brand" routerLink="/home" src="../../../assets/logotipo.jpg" alt="Logo">
-    </div>
-  </nav>
+
   <h4>Cadastrar novo usuário</h4>
   <div class="conatiner">
     <form [formGroup]="cadastrarUsuario" (ngSubmit)="onSubmit()">
         
         <label for="">Criar login do usuário:</label>
         <input type="email" name="email" formControlName="email">
-        <ng-container *ngIf="cadastrarUsuario">
-            <span *ngIf="">
+        <ng-container *ngIf="cadastrarUsuario.controls.email.touched">
+            <span *ngIf="cadastrarUsuario.controls.email.errors">
                 Campo obrigatório!
             </span>
         </ng-container><br><br><br>
         
         <label for="">Criar senha do usuário:</label>
         <input type="password" name="senha" formControlName="senha">
-        <ng-container *ngIf="cadastrarUsuario">
-            <span *ngIf="">
+        <ng-container *ngIf="cadastrarUsuario.controls.senha.touched">
+            <span *ngIf="cadastrarUsuario.controls.senha.errors">
                 Campo obrigatório!
             </span>
         </ng-container><br>
@@ -58,16 +54,16 @@
         <input type="text" name="id" formControlName="id" hidden="true">
     <label for="">Atualizar login do usuário:</label>
     <input type="email" name="email" formControlName="email">
-    <ng-container *ngIf="cadastrarUsuario">
-        <span *ngIf="">
+    <ng-container *ngIf="atualizarUsuario.controls.email.touched">
+        <span *ngIf="atualizarUsuario.controls.email.errors">
             Campo obrigatório!
         </span>
     </ng-container><br><br><br>
     
     <label for="">Atualizar senha do usuário:</label>
     <input type="text" name="senha" formControlName="senha">
-    <ng-container *ngIf="cadastrarUsuario">
-        <span *ngIf="">
+    <ng-container *ngIf="atualizarUsuario.controls.senha.errors">
+        <span *ngIf="atualizarUsuario.controls.senha.errors">
             Campo obrigatório!
         </span>
     </ng-container><br>

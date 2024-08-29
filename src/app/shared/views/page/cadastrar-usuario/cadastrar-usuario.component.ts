@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CryptoService } from '../../../services/crypto.service';
 import {  Subject, takeUntil } from 'rxjs';
 
+
 @Component({
   selector: 'app-cadastrar-usuario',
   standalone: true,
@@ -18,8 +19,8 @@ import {  Subject, takeUntil } from 'rxjs';
 })
 export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
   user: user[] = [];
-  cadastrarUsuario!: FormGroup;
-  atualizarUsuario!: FormGroup;
+  cadastrarUsuario:any = FormGroup;
+  atualizarUsuario:any = FormGroup;
   editarUsuario:boolean = false;
   atualizarEmail:String='';
   private unsubscribe = new Subject<void>();
@@ -44,7 +45,6 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
              for ( const item of response! ) {
               const emailDecreptado =  this.cryptoService.decryptData(item.email);
               const senhaDecreptado  = this.cryptoService.decryptData(item.senha);
-              
               this.user.push({ email:emailDecreptado, senha:senhaDecreptado,_id:item._id});
              }
              this.user.reverse();
@@ -53,7 +53,6 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
          console.log('Erro ao fazer requisição dos cards',error, )
          }
        });
-    
   }
 
   // validação de email
@@ -78,7 +77,6 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
         const valor = this.cadastrarUsuario.value;
         const emailEncryptado = this.cryptoService.encryptData(valor.email);
         const senhaEncryptada = this.cryptoService.encryptData(valor.senha);
-        
            this.userService.post({email:emailEncryptado, senha:senhaEncryptada} ).pipe(
             takeUntil(this.unsubscribe))
             .subscribe({
@@ -108,11 +106,10 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
 
  atualizar(){
   this.editarUsuario = false
-  const valor = this.atualizarUsuario.value;
-  const emailEncryptado = this.cryptoService.encryptData(valor.email);
-  const senhaEncryptada = this.cryptoService.encryptData(valor.senha);
+  const emailEncryptado = this.cryptoService.encryptData(this.atualizarUsuario.value.email);
+  const senhaEncryptada = this.cryptoService.encryptData(this.atualizarUsuario.value.senha);
 
-  this.userService.update({_id:valor.id, email:emailEncryptado, senha:senhaEncryptada} ).pipe(
+  this.userService.update({_id:this.atualizarUsuario.value.id, email:emailEncryptado, senha:senhaEncryptada} ).pipe(
     takeUntil(this.unsubscribe))
     .subscribe({
      next: (response:user) => {}, 
@@ -136,7 +133,7 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
           next: () => console.log("Usuário deletado com sucesso."),
           error: err => console.error('Erro ao deletar usuário: ', err)
         });
-    }
+      }
    }
 
    removeAspas(str: string | undefined | null): string {
@@ -145,6 +142,7 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
     }
     return str.replace(/^"|"$/g, '');
   }
+
   ngOnDestroy(): void {
     this.unsubscribe.next();
     this.unsubscribe.complete();

@@ -65,7 +65,7 @@ export class CardService {
   }
 
   delete(id:string):Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+    return this.http.delete<void>(`${this.apiUrl}/cards/${id}`).pipe(
       tap(() => this.showMessage("Card deletado com sucesso!")),
       catchError((error) => {
         this.showMessage(`Erro ao deletar card; ${error.message || error}`);

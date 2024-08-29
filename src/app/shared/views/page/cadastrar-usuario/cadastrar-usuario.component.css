@@ -102,7 +102,9 @@ table {
   top: -17px;
   right: -23px;
 }
-
+span{
+  color: #f41d1d;
+}
 @media screen and (max-width:600px) {
 
   .conatiner {

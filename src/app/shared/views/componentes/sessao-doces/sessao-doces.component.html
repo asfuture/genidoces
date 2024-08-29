@@ -3,7 +3,12 @@
         {{ message }}
     </div>
     <div class="row">
+        <h4 *ngIf="administrador == '/administrador'">Lista de Cards</h4>
         <div class="col s12 m4 l3" *ngFor="let item of card">
+            <div class="containerBtnDelete" *ngIf="administrador == '/administrador'">
+                <button class="waves-effect waves-dark btn-small" (click)="deleteCard(item._id.toString())">Deleta Card</button>
+            </div>
+            
         <div class="card col s12">
             <div class="card-image col s12">
             <img src="{{item.imagem}}" />

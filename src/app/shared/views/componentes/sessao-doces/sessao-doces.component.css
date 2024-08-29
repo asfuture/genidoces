@@ -1,3 +1,6 @@
+h4{
+    text-align: center;
+}
 .card-image  {
     width: 200px;
 }
@@ -21,3 +24,18 @@
 .card-action:last-child{
     text-align: center;
 }
+.containerBtnDelete {
+    display: flex;
+    justify-content: space-around;
+}
+.btn-small {
+    background: red;
+}
+
+.btn:hover, .btn-small:hover {
+    border: 1px solid black;
+    background-color: #ee6e73;
+    color: black;
+}
+
+
