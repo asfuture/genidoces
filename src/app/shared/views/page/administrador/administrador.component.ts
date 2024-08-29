@@ -4,6 +4,7 @@ import { CriarCardComponent } from '../criar-card/criar-card.component';
 import { CadastrarUsuarioComponent } from "../cadastrar-usuario/cadastrar-usuario.component";
 import { ListaPedidoComponent } from '../../componentes/lista-pedido/lista-pedido.component';
 import { SessaoDocesComponent } from "../../componentes/sessao-doces/sessao-doces.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-administrador',
@@ -17,7 +18,7 @@ export class AdministradorComponent {
   cadastrarUsuario:number = 0;
   listaCardSessaoDoces:number = 0;
   listaPedido:number = 0;
-  constructor() {
+  constructor(private router:Router) {
   }
 
   click(valor:number):void{
@@ -49,5 +50,10 @@ export class AdministradorComponent {
       default:
         this.criarCard = 1
     }
+  }
+
+  logout() {
+    sessionStorage.setItem('isAuthenticated','');
+    this.router.navigate(['/login']);
   }
 }

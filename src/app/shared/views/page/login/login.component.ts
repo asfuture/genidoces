@@ -62,10 +62,11 @@ ngOnInit(): void {
     var valor = 0;
      for (const usuario of this.loginUsuario) {
        if (this.cryptoService.decryptData(usuario.email) === this.login.value.email && this.cryptoService.decryptData(usuario.senha) === this.login.value.senha ){
-           this.router.navigate(['administrador']);
+            sessionStorage.setItem('isAuthenticated','true')
+            this.router.navigate(['administrador']);
            valor = 1;
            break;
-       }  
+       } 
      }
 
      if(valor == 0){
