@@ -26,6 +26,7 @@ export class CriarCardComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
+    private http: HttpClient,
     private cardService: CardService,
     private storage: Storage
   ) {}
@@ -55,8 +56,8 @@ export class CriarCardComponent implements OnInit, OnDestroy {
   async onSubmit() {
    await this.hospedarImagemFirebase()
      setTimeout(() => {
-      this.salvarCard()
-     },4000);
+      this.saveCard()
+     },5000);
   }
 
   //Criar url da imagem no storage firebase
@@ -75,15 +76,17 @@ export class CriarCardComponent implements OnInit, OnDestroy {
         },
         async () => {
           this.url = await getDownloadURL(storageRef);
-          //console.log("URL do Firebase:", this.url);
+          console.log("URL do Firebase:", this.url);
         }
       );
     }
    }
 
-   salvarCard(): void {
+  saveCard(): void {
     if (this.criarCard.valid) {
       const valorCard = this.criarCard.value;
+            valorCard.imagem = this.url;
+      
        this.cardService.post(valorCard).pipe(
         takeUntil(this.unsubscribe)
        ).subscribe({

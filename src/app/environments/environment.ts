@@ -1,7 +1,7 @@
 export const environment = {
     production: false,
-    apiUrl:"http://localhost:3001/api",
-    //apiUrl:"https://api-teste-gerais.vercel.app/api",
+    //apiUrl:"http://localhost:3001/api",
+    apiUrl:"https://api-teste-gerais.vercel.app/api",
     firebaseConfig: {
         apiKey: "AIzaSyDRoxGnnWLl6Tbih5BG3i_DmcKU8OJNhoo",
         authDomain: "genidocesbrigadeiros.firebaseapp.com",
