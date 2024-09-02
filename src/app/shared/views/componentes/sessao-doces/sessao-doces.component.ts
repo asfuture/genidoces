@@ -7,6 +7,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { CardDoces } from '../../../model/pedido.model';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder,ReactiveFormsModule } from '@angular/forms';
+import { Storage, deleteObject, ref, } from '@angular/fire/storage';
 
 
 @Component({
@@ -27,7 +28,8 @@ export class SessaoDocesComponent implements OnInit, OnDestroy {
   constructor (
     public cardService:CardService,
     private router:Router,
-    private formBuilder:FormBuilder){}
+    private formBuilder:FormBuilder,
+    private storage: Storage){}
 
  ngOnInit(): void {
   this.administrador = this.router.url;
@@ -52,13 +54,25 @@ console.log("valor", id)
     this.cardService.delete(id).pipe(
       takeUntil(this.unsubscribe))
       .subscribe({
-        next: (response ) => {
-            console.log(" deletado",response);
+        next: (response:any ) => {
+            //console.log(" deletado 1", response.deleteCard?.imagem);
+             this.deleteImgFirebase(response.deleteCard.imagem);
         }, 
         error:(error) => {
         console.log('Erro ao fazer requisição dos cards',error, )
         }
       })
+}
+
+async deleteImgFirebase(filePath:string) {
+  try {
+    const storageRef = ref(this.storage, filePath);
+    await deleteObject(storageRef);
+    console.log(`Arquivo ${filePath} removido com sucesso.`);
+  } catch (error) {
+    console.error("Erro ao remover o arquivo:", error);
+  }
+
 }
    ngOnDestroy(): void {
     console.log('O componente está sendo destruído!')

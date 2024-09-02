@@ -1,14 +1,13 @@
+
 import { CardService } from './../../../services/card.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-//import { AngularFireModule } from '@angular/fire/compat';
-//import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-//import { environment } from '../../../../environments/environment';
-//import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { finalize } from 'rxjs/operators';
+
+import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
+
 
 @Component({
   selector: 'app-criar-card',
@@ -18,17 +17,18 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./criar-card.component.css'],
   providers: [HttpClient]
 })
-export class CriarCardComponent implements OnInit {
+export class CriarCardComponent implements OnInit, OnDestroy {
   criarCard!: FormGroup;
   imagemPreview: string | ArrayBuffer | null = null;
   selectedFile!: File;
+  url:string ='';
   private unsubscribe = new Subject<void>();
 
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private cardService: CardService,
-    //private storage: AngularFireStorage
+    private storage: Storage
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +41,7 @@ export class CriarCardComponent implements OnInit {
     });
   }
 
+  //Converter imagem para base64 e adicionar ao modelo card/post
   onFileChange(event: any): void {
     this.selectedFile = event.target.files[0];
     if (this.selectedFile) {
@@ -52,41 +53,53 @@ export class CriarCardComponent implements OnInit {
     }
   }
 
-   onSubmit(): void {
-  //   if (this.selectedFile) {
-  //     const filePath = `images/${this.selectedFile.name}`;
-  //     const fileRef = this.storage.ref(filePath);
-  //     const task = this.storage.upload(filePath, this.selectedFile);
+  async onSubmit() {
+   await this.hospedarImagemFirebase()
+     setTimeout(() => {
+      this.saveCard()
+     },5000);
+  }
 
-  //     task.snapshotChanges().pipe(
-  //       finalize(() => {
-  //         fileRef.getDownloadURL().subscribe((url) => {
-  //           this.criarCard.patchValue({ imagem: url });
-  //           this.saveCard();
-  //         });
-  //       })
-  //     ).subscribe();
-  //   } else {
-  //     this.saveCard();
-  //   }
+  //Criar url da imagem no storage firebase
+  async hospedarImagemFirebase() {
+    if (this.selectedFile) {
+      const path = `img/${this.selectedFile.name}`;
+      const storageRef = ref(this.storage, path);
+      const uploadTask = uploadBytesResumable(storageRef, this.selectedFile);
+      uploadTask.on(
+        'state_changed',
+        snapshot => {
+          // progresso do upload (opcional)
+        },
+        error => {
+          console.error("Erro ao fazer upload:", error);
+        },
+        async () => {
+          this.url = await getDownloadURL(storageRef);
+          console.log("URL do Firebase:", this.url);
+        }
+      );
+    }
    }
 
   saveCard(): void {
     if (this.criarCard.valid) {
-      const criarCard = this.criarCard.value;
-      console.log("Formulário", criarCard);
-
-      this.cardService.post(criarCard).pipe(
+      const valorCard = this.criarCard.value;
+            valorCard.imagem = this.url;
+      
+       this.cardService.post(valorCard).pipe(
         takeUntil(this.unsubscribe)
-      ).subscribe({
-        next: (resultado) => {
-          console.log('Card criado com sucesso:', resultado);
-        },
-        error: (error) => {
-          console.log('Erro ao criar card', error);
-        }
-      });
-    }
+       ).subscribe({
+         next: (resultado) => {
+           console.log('Card criado com sucesso:', resultado);
+         },
+         error: (error) => {
+           console.log('Erro ao criar card', error);
+         }
+       });
+       this.criarCard.reset();
+       this.imagemPreview = '';
+     }
   }
 
   ngOnDestroy(): void {
