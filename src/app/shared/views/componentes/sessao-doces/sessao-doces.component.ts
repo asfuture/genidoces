@@ -6,9 +6,8 @@ import { CardService } from '../../../services/card.service';
 import { Subject, takeUntil } from 'rxjs';
 import { CardDoces } from '../../../model/pedido.model';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder,ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Storage, deleteObject, ref, } from '@angular/fire/storage';
-
 
 @Component({
   selector: 'app-sessao-doces',
@@ -28,7 +27,6 @@ export class SessaoDocesComponent implements OnInit, OnDestroy {
   constructor (
     public cardService:CardService,
     private router:Router,
-    private formBuilder:FormBuilder,
     private storage: Storage){}
 
  ngOnInit(): void {
@@ -57,6 +55,7 @@ console.log("valor", id)
         next: (response:any ) => {
             //console.log(" deletado 1", response.deleteCard?.imagem);
              this.deleteImgFirebase(response.deleteCard.imagem);
+             this.get();
         }, 
         error:(error) => {
         console.log('Erro ao fazer requisição dos cards',error, )
@@ -79,6 +78,5 @@ async deleteImgFirebase(filePath:string) {
       this.unsubscribe.next();
       this.unsubscribe.complete();
   }
-
 
 }

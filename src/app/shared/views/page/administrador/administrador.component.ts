@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CriarCardComponent } from '../criar-card/criar-card.component';
-import { CadastrarUsuarioComponent } from "../cadastrar-usuario/cadastrar-usuario.component";
+import { CriarCardComponent } from '../../componentes/criar-card/criar-card.component';
+import { CadastrarUsuarioComponent } from '../../componentes/cadastrar-usuario/cadastrar-usuario.component';
 import { ListaPedidoComponent } from '../../componentes/lista-pedido/lista-pedido.component';
 import { SessaoDocesComponent } from "../../componentes/sessao-doces/sessao-doces.component";
 import { Router } from '@angular/router';
@@ -18,6 +18,7 @@ export class AdministradorComponent {
   cadastrarUsuario:number = 0;
   listaCardSessaoDoces:number = 0;
   listaPedido:number = 0;
+  
   constructor(private router:Router) {
   }
 

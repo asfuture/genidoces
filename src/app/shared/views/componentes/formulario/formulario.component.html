@@ -1,4 +1,7 @@
 <h4>Faça o seu pedido.</h4>
+<div class="message" *ngIf="formularioService.message$ | async as message">
+    {{message}}
+</div>
 <div class="conatiner">
     <form [formGroup]="pedido" (ngSubmit)="onSubmit()">
         <label for="">Digite o seu nome:</label>
@@ -35,6 +38,4 @@
           </button>
     </form>
 </div>
-<div style="text-align: center;" *ngIf="formularioService.message$ | async as message">
-    {{message}}
-</div>
+

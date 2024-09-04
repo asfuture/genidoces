@@ -17,9 +17,9 @@ import {  Subject, takeUntil } from 'rxjs';
   providers:[HttpClient]
 })
 export class LoginComponent implements OnInit, OnDestroy {
-
   login:any = FormGroup;
   loginUsuario:any = '';
+  
   private unsubscribe = new Subject<void>();
 
   constructor( 
@@ -72,7 +72,6 @@ ngOnInit(): void {
      if(valor == 0){
       alert("Verifique o seu Email e Senha! Por Favor!");
      }
-
    }
 
    ngOnDestroy(): void {

@@ -38,4 +38,14 @@ h4{
     color: black;
 }
 
-
+.message {
+    width: 100%;
+    border-radius: 5px;
+    background: #cb0606e1;
+    color: rgba(244, 241, 239, 0.977);
+    font-size: 2em;
+    position: relative;
+    top: 100px;
+    text-align: center;
+    z-index: 99;
+}

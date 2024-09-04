@@ -5,7 +5,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-
 import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
 
 
@@ -26,7 +25,7 @@ export class CriarCardComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
+    //private http: HttpClient,
     private cardService: CardService,
     private storage: Storage
   ) {}
@@ -76,7 +75,7 @@ export class CriarCardComponent implements OnInit, OnDestroy {
         },
         async () => {
           this.url = await getDownloadURL(storageRef);
-          console.log("URL do Firebase:", this.url);
+          //console.log("URL do Firebase:", this.url);
         }
       );
     }
@@ -86,20 +85,26 @@ export class CriarCardComponent implements OnInit, OnDestroy {
     if (this.criarCard.valid) {
       const valorCard = this.criarCard.value;
             valorCard.imagem = this.url;
-      
-       this.cardService.post(valorCard).pipe(
-        takeUntil(this.unsubscribe)
-       ).subscribe({
-         next: (resultado) => {
-           console.log('Card criado com sucesso:', resultado);
-         },
-         error: (error) => {
-           console.log('Erro ao criar card', error);
-         }
-       });
-       this.criarCard.reset();
-       this.imagemPreview = '';
+      const novoNumerotelefoneLimpo =  this.limpaNumeroTelefone(this.criarCard.controls['whatsapp'].value);
+      valorCard.whatsapp = novoNumerotelefoneLimpo;
+    
+        this.cardService.post(valorCard).pipe(
+         takeUntil(this.unsubscribe)
+        ).subscribe({
+          next: (resultado) => {
+            //console.log('Card criado com sucesso:', resultado);
+          },
+          error: (error) => {
+            console.log('Erro ao criar card', error);
+          }
+        });
+        this.criarCard.reset();
+        this.imagemPreview = '';
      }
+  }
+
+  limpaNumeroTelefone(valor:string) {
+    return valor.replace(/[()\s-]/g, '');
   }
 
   ngOnDestroy(): void {

@@ -19,7 +19,6 @@ import { PedidoModel } from '../../../model/pedido.model';
 })
 export class ListaPedidoComponent implements OnInit, OnDestroy {
   pedido:PedidoModel[] | null = [];
-  
   private unsubscribe = new Subject<void>();
 
   constructor (public formularioService:FormularioService){}
