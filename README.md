@@ -1,27 +1,92 @@
-# Genidoces
+### Projeto-Varejo: GeniDoces 
+- Desenvolvimento de um sistema web responsivo desktop/mobile para vendas
+ de brigadeiros artesanais.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+## Requisitos de Produto:
+- add
+### A aplicação está hospedada no Firebase e pode ser acessada por este link:
+- https://genidocesbrigadeiros.web.app/home
 
-## Development server
+### A API está hospedado no vercel e pode ser acessada por este link:
+- https://api-teste-gerais.vercel.app/api/cards
+  
+- GitHub API: https://github.com/asfuture/API-TESTE-GERAIS
+- 
+  
+## Tecnologias Utilizadas
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Angular 17.3.8.
+- Node v21.6.1
+- HTML5
+- CSS3
+- Materialize
+- TypeScript
+- RxJS
+- Jest (para testes unitários)
+### Arquitetura
+-  MVC 
+  
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Como Rodar o Projeto
 
-## Build
+### Pré-requisitos
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Node.js (v21.6.1)
+- Angular CLI
 
-## Running unit tests
+### Passos para Rodar o Projeto Localmente
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Clone o repositório:
 
-## Running end-to-end tests
+    ```bash
+    git@github.com:asfuture/genidoces.git
+    cd genidoces
+    ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+2. Instale as dependências:
 
-## Further help
+    ```bash
+    npm install
+    ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+3. Rode a aplicação:
+
+    ```bash
+    ng serve
+    ```
+
+4. Acesse a aplicação no navegador:
+
+    ```
+    http://localhost:4200
+    ```
+
+### Executando Testes
+
+Para executar os testes unitários, utilize o comando:
+
+```bash
+npm run test:watch
+```
+## Utilizando Docker
+### Passos para construir a Imagem Docker
+### Depois de clonar o projeto do GitHub para o seu computador, siga estas etapas:
+
+1. No diretório raiz do projeto, execute o seguinte comando para construir a imagem Docker:
+  
+  ```bash
+  adicionar caminho
+  ```
+
+2. Executar o Container Docker:
+
+  ```bash
+  docker run -p 8080:80 adicionar caminho ainda
+  ```
+
+3. Acessar a Aplicação 
+
+ - Abra um navegador web e acesse a URL http://localhost:8080 para ver a aplicação em execução.
+
+## Autor: Alex Ferreira
