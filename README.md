@@ -11,7 +11,7 @@
 - https://api-teste-gerais.vercel.app/api/cards
   
 - GitHub API: https://github.com/asfuture/API-TESTE-GERAIS
-- 
+  
   
 ## Tecnologias Utilizadas
 
