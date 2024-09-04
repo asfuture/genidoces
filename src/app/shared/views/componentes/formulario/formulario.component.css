@@ -36,3 +36,14 @@ span {
     top: 0px;
     z-index: 2;
 }
+.message {
+    width: 100%;
+    border-radius: 5px;
+    background: #3cca3250;
+    color: green;
+    font-size: 5em;
+    position: relative;
+    top: 100px;
+    text-align: center;
+    z-index: 99;
+}

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
 import { NgxMaskDirective,  } from 'ngx-mask';
 import { FormularioService } from './../../../services/formulario.service';
 import { Subject, takeUntil } from 'rxjs';
@@ -18,10 +17,7 @@ import { Subject, takeUntil } from 'rxjs';
   providers:[HttpClient]
 })
 export class FormularioComponent implements OnInit, OnDestroy {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pedido: any = FormGroup;
-  //lista!:PedidoModel[];
-  //lista$!: Observable<PedidoModel[]>;
   private unsubscribe = new Subject<void>();
 
   constructor (

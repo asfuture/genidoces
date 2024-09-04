@@ -1,5 +1,5 @@
 <!-- eslint-disable @angular-eslint/template/alt-text -->
-    <div style="text-align: center;" *ngIf="cardService.message$ | async as message">
+    <div class="message" *ngIf="cardService.message$ | async as message">
         {{ message }}
     </div>
     <div class="row">
@@ -18,7 +18,7 @@
             <p>{{item.descricao}}</p>
             </div>
             <div class="card-action">
-            <a href="{{item.whatsapp}}">{{item.link}}</a>
+            <a href="https://wa.me/+55{{item.whatsapp}}?text=Oi! Tudo bem? Eu gostaria de fazer o meu pedido desse {{item.titulo}}" target="_blank">{{item.link}}</a>
             </div>
         </div>
         </div>

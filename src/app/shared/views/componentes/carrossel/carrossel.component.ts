@@ -18,7 +18,7 @@ export class CarrosselComponent implements OnInit {
     if(valor == 'home'){
       var elems = document.querySelectorAll('.carousel');
       var instances = M.Carousel.init(elems);
-      console.log(" IF valor ", valor)
+      //console.log(" IF valor ", valor)
     }
   }
 }
