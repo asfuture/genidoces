@@ -1,4 +1,4 @@
-### Projeto-Varejo: GeniDoces 
+## Projeto-Varejo: GeniDoces 
 - Desenvolvimento de um sistema web responsivo desktop/mobile para vendas
  de brigadeiros artesanais.
 
