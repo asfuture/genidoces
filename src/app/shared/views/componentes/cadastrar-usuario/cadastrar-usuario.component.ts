@@ -81,7 +81,7 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
             takeUntil(this.unsubscribe))
             .subscribe({
              next: (response) => {
-                this.route.navigate(['/cadastrar']);
+                this.route.navigate(['/administrador']);
              }, 
               error:(error) => {
               console.log('Erro ao fazer requisição dos cards',error, )
@@ -130,7 +130,7 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
         this.userService.delete(id).pipe(
           takeUntil(this.unsubscribe)
         ).subscribe({
-          next: () => console.log("Usuário deletado com sucesso."),
+          next: () => { this.route.navigate(['/administrador']); },
           error: err => console.error('Erro ao deletar usuário: ', err)
         });
       }

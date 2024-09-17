@@ -12,7 +12,7 @@
         </ng-container><br><br><br>
         
         <label for="">Criar senha do usuário:</label>
-        <input type="password" name="senha" formControlName="senha">
+        <input type="password" name="senha" formControlName="senha" maxlength="4">
         <ng-container *ngIf="cadastrarUsuario.controls.senha.touched">
             <span *ngIf="cadastrarUsuario.controls.senha.errors">
                 Campo obrigatório!
@@ -61,7 +61,7 @@
     </ng-container><br><br><br>
     
     <label for="">Atualizar senha do usuário:</label>
-    <input type="text" name="senha" formControlName="senha">
+    <input type="text" name="senha" formControlName="senha" maxlength="4">
     <ng-container *ngIf="atualizarUsuario.controls.senha.errors">
         <span *ngIf="atualizarUsuario.controls.senha.errors">
             Campo obrigatório!

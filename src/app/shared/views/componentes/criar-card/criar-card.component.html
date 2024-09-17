@@ -3,15 +3,15 @@
 <section>
     <form [formGroup]="criarCard" (ngSubmit)="onSubmit()">
         <label for="titulo">Título</label>
-        <input type="text" id="titulo" name="titulo" formControlName="titulo" required>
+        <input type="text" id="titulo" name="titulo" formControlName="titulo" maxlength="35" required>
 
         <label for="descricao">Descrição</label>
         <textarea id="descricao" name="descricao" rows="4" formControlName="descricao" required></textarea>
         <label for="link">Link</label>
-        <input type="text" id="link" name="link" value="Faça seu pedido agora!" formControlName="link" required>
+        <input type="text" id="link" name="link" formControlName="link" required>
 
         <label for="whatsapp">WhatsApp</label>
-        <input type="text" id="whatsapp" name="whatsapp" value="+55 (11) 91234-5678" formControlName="whatsapp" required>
+        <input type="text" id="whatsapp" name="whatsapp" formControlName="whatsapp" required>
 
         <label for="imagem">Imagem</label>
         <input type="file" id="imagem" name="imagem" formControlName="imagem" (change)="onFileChange($event)" accept="image/*" required>
