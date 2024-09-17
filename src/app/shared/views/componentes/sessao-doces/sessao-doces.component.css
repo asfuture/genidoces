@@ -9,12 +9,14 @@ h4{
     border-radius: 10px;
     padding: 5px;
 }
-
+.card p {
+    height: 385px;
+}
 .card .card-image .card-title {
     max-width: 100%;
     background: hotpink;
     color: #fff;
-    font-size: 20px;
+    font-size: 16px;
     padding: 5px;
     position: absolute;
     bottom: 0;
@@ -48,4 +50,13 @@ h4{
     top: 100px;
     text-align: center;
     z-index: 99;
+}
+
+@media only screen and (max-width: 600px) {
+    .card .card-image .card-title {
+        font-size: 17.5px;
+    }
+    .card p {
+        height: 350px;
+    }
 }

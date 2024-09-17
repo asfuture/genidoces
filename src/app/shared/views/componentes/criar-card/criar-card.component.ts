@@ -32,10 +32,10 @@ export class CriarCardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.criarCard = this.formBuilder.group({
-      titulo: ['', [Validators.required, Validators.maxLength(50)]],
+      titulo: ['', [Validators.required, Validators.maxLength(35)]],
       descricao: ['', [Validators.required, Validators.maxLength(100)]],
-      link: ['', Validators.required], 
-      whatsapp: ['', [Validators.required]],
+      link: ['Faça seu pedido agora!', Validators.required], 
+      whatsapp: ['(11) 99633-8062', [Validators.required]],
       imagem: ['']
     });
   }
